@@ -1,1 +1,17 @@
-//
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Nova+Square|Teko&display=swap');
+
+.font-header {
+    font-family: 'Nova Square', cursive;
+}
+
+.font-body {
+    font-family: 'Teko', sans-serif;
+
+}
