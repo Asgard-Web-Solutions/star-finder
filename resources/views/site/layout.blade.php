@@ -14,10 +14,10 @@
     </head>
     <body class="bg-gray-900">
 
-        <div class="bg-gray-100 h-12 font-header">
-            <ul class="flex h-full">
-                <li class="mr-6 bg-black inline-block align-middle">
-                    <a class="text-blue-500 hover:text-blue-800 align-bottom" href="#">Home</a>
+        <div class="bg-gray-100 h-12 font-header flex">
+            <ul class="flex h-full pt-3 pl-3">
+                <li class="mr-6">
+                    <a class="text-blue-500 hover:text-blue-800" href="#">Home</a>
                 </li>
                 <li class="mr-6">
                 <a class="text-blue-500 hover:text-blue-800" href="#">Character</a>
@@ -27,7 +27,6 @@
                 </li>
             </ul>
         </div>
-          
 
         @yield('body')
 
