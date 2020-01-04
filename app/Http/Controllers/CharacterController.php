@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
@@ -10,4 +11,9 @@ class CharacterController extends Controller
 
         return view('character.new');
     }
+
+    public function save (Request $request){
+        $character = new Character();
+    }
+
 }
