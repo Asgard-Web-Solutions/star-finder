@@ -7,11 +7,22 @@
 
 @import url('https://fonts.googleapis.com/css?family=Nova+Square|Teko&display=swap');
 
-.font-header {
+.font-spacey {
     font-family: 'Nova Square', cursive;
 }
 
-.font-body {
-    font-family: 'Teko', sans-serif;
+.form-input {
+    @apply border text-orange-600 font-bold font-sans mt-1 mb-3 mx-2 p-1 w-5/6 rounded;
+}
 
+.form-label {
+    @apply text-lg mx-2 my-1;
+}
+
+.form-button {
+    @apply bg-orange-600 rounded-lg px-2 py-0 m-2 text-gray-100;
+}
+
+.form-button:hover {
+    @apply bg-orange-500 text-blue-900 font-bold;
 }
