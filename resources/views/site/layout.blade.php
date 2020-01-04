@@ -20,8 +20,11 @@
                     <a class="text-blue-500 hover:text-blue-800" href="/">Home</a>
                 </li>
                 <li class="mr-6">
-                <a class="text-blue-500 hover:text-blue-800" href="/home">Character</a>
+                    <a class="text-blue-500 hover:text-blue-800" href="/home">Character</a>
                 </li>
+                <li class="mr-6">
+                    <a class="text-blue-500 hover:text-blue-800" href="/acp">Admin Control Panel</a>
+                </li>    
                 @if (!Auth::check())
                     <li class="mr-6">
                         <a class="text-blue-500 hover:text-blue-800" href="/login">Login</a>
