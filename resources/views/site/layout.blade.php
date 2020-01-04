@@ -17,10 +17,10 @@
         <nav class="bg-gray-100 h-12 font-spacey flex text-xl">
             <ul class="flex h-full pt-3 pl-3">
                 <li class="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800" href="#">Home</a>
+                    <a class="text-blue-500 hover:text-blue-800" href="/">Home</a>
                 </li>
                 <li class="mr-6">
-                <a class="text-blue-500 hover:text-blue-800" href="#">Character</a>
+                <a class="text-blue-500 hover:text-blue-800" href="/home">Character</a>
                 </li>
                 @if (!Auth::check())
                     <li class="mr-6">
@@ -37,13 +37,25 @@
             </ul>
         </nav>
 
-        <aside>
+        @php
+            $mainSize = "w-full";   
+        @endphp
 
-        </aside>
+        <div class="flex-row flex w-full">
+            @if (isset($character))
+                @php
+                    $mainSize = "w-10/12";
+                @endphp
 
-        <main class="bg-gray-100 w11/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
-            @yield('body')
-        </main>
+                <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
+                    <h2 class="text-orange-600 text-2xl underline">Character</h2>
+                </aside>
+            @endif
+
+            <main class="bg-gray-100 {{ $mainSize }} min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
+                @yield('body')
+            </main>
+        </div>
 
     </body>
 </html>
