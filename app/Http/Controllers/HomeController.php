@@ -29,4 +29,9 @@ class HomeController extends Controller
             'character' => $character,
         ]);
     }
+
+    public function acp()
+    {
+        return view('acp.index');
+    }
 }
