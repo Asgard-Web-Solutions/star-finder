@@ -13,14 +13,14 @@
             </thead>
             @foreach ($species as $aspecies)
                 <tr>
-                    <td class="pl-2"><a href="{{ route('species', $aspecies->id) }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">{{ $aspecies->name }}</a></td>
-                    <td><a href="{{ route('edit-species', $aspecies->id) }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">Edit</a></td>
+                    <td class="pl-2"><a href="{{ route('species', $aspecies->id) }}">{{ $aspecies->name }}</a></td>
+                    <td><a href="{{ route('edit-species', $aspecies->id) }}">Edit</a></td>
                 </tr>
             @endforeach
         </table>
 
         <div class="w-full text-right">
-            <a href="{{ route('new-species') }}" class="form-button">Add Species</a>
+            <a href="{{ route('new-species') }}" class="button">Add Species</a>
         </div>
     </div>
 @endsection
