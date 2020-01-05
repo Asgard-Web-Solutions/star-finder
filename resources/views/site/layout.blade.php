@@ -40,6 +40,8 @@
             </ul>
         </nav>
 
+        @include('sweetalert::alert')
+
         @php
             $mainSize = "w-full";   
         @endphp
