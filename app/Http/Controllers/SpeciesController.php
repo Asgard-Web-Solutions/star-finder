@@ -27,6 +27,7 @@ class SpeciesController extends Controller
         $species = new Species();
 
         $species->name = $request->name;
+        $species->description = $request->description;
 
         $species->save();
 
@@ -52,7 +53,7 @@ class SpeciesController extends Controller
     public function edit($id)
     {
         $species = Species::find($id);
-        
+
         if (!$species) {
             Alert::toast('Species Not Found', 'error');
             return redirect()->route('all-species');
@@ -68,6 +69,7 @@ class SpeciesController extends Controller
         $species = Species::find($id);
 
         $species->name = $request->name;
+        $species->description = $request->description;
         $species->save();
 
         Alert::toast('Species Updated', 'success');

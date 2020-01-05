@@ -12,6 +12,9 @@
                 <label for="name" class="form-label">Species Name</label>
                 <input type="text" class="form-input" name="name" id="name" value="{{ $species->name }}">
 
+                <label for="name" class="form-label">Species description</label>
+                <textarea class="form-input" name="description" id="description">{{ $species->description }}</textarea>
+
                 <input type="submit" class="form-button" value="Update Species">
                 <a href="{{ route('all-species') }}" class="button-dark">Cancel</a>
             </form>
