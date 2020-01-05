@@ -16,6 +16,7 @@ class CreateSpeciesTable extends Migration
         Schema::create('species', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
