@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -91,6 +92,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
 
+        Alert::toast('User Updated', 'success');
+        
         return redirect()->route('all-users');
     }
 

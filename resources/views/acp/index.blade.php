@@ -7,13 +7,13 @@
             <h1>Manage Site</h1>
         </div>
 
-        <div class="card-body">
-            <table class="p-2 w-full">
+        <div class="card-body text-center">
+            <table class="m-auto">
                 <thead>
                     <th>Site Elements</th>
                 </thead>
                 <tr>
-                    <td class="pl-2"><a href="{{ route('all-users') }}">Manage Users</a></td>
+                    <td><a href="{{ route('all-users') }}">Manage Users</a></td>
                 </tr>
             </table>
         </div>
@@ -26,14 +26,12 @@
         </div>
 
         <div class="card-body">
-            <table class="p-2 w-full">
+            <table class="m-auto">
                 <thead>
                     <th>Game Element</th>
-                    <th>Add</th>
                 </thead>
                 <tr>
-                    <td class="pl-2"><a href="{{ route('all-species') }}">Species</a></td>
-                    <td><a href="{{ route('new-species') }}">New</a></td>
+                    <td><a href="{{ route('all-species') }}">Species</a></td>
                 </tr>
             </table>
         </div>
