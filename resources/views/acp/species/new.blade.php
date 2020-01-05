@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="card">
+    <div class="card w-4/12">
         <div class="card-header">
             <h1>Create Species</h1>
         </div>

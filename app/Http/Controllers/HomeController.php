@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $character = "Hello World";
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        if (!$character) {
+            return view('home', [
+                'character' => "none",
+            ]);
+        }
+
+        // get species name here
 
         return view('home', [
             'character' => $character,

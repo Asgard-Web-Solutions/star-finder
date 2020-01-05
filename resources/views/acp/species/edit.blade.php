@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="card">
+    <div class="card w-6/12">
         <div class="card-header">
             <h1>Update Species {{ $species->name }}</h1>
         </div>
@@ -12,7 +12,7 @@
                 <label for="name" class="form-label">Species Name</label>
                 <input type="text" class="form-input" name="name" id="name" value="{{ $species->name }}">
 
-                <label for="name" class="form-label">Species description</label>
+               <br> <label for="name" class="form-label">Species description</label>
                 <textarea class="form-input" name="description" id="description">{{ $species->description }}</textarea>
 
                 <input type="submit" class="form-button" value="Update Species">
