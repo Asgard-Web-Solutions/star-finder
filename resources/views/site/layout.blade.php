@@ -17,24 +17,24 @@
         <nav class="bg-gray-100 h-12 font-spacey flex text-xl">
             <ul class="flex h-full pt-3 pl-3">
                 <li class="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800" href="/">Home</a>
+                    <a class="text-blue-500 hover:text-blue-800 no-underline" href="/">Home</a>
                 </li>
                 <li class="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800" href="/home">Character</a>
+                    <a class="text-blue-500 hover:text-blue-800 no-underline" href="/home">Character</a>
                 </li>
                 <li class="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800" href="/acp">Admin Control Panel</a>
+                    <a class="text-blue-500 hover:text-blue-800 no-underline" href="/acp">Admin Control Panel</a>
                 </li>    
                 @if (!Auth::check())
                     <li class="mr-6">
-                        <a class="text-blue-500 hover:text-blue-800" href="/login">Login</a>
+                        <a class="text-blue-500 hover:text-blue-800 no-underline" href="/login">Login</a>
                     </li>
                     <li class="mr-6">
-                        <a class="text-blue-500 hover:text-blue-800" href="/register">Register</a>
+                        <a class="text-blue-500 hover:text-blue-800 no-underline" href="/register">Register</a>
                     </li>
                 @else
                     <li class="mr-6">
-                        <a class="text-blue-500 hover:text-blue-800" href="/logout">Logout</a>
+                        <a class="text-blue-500 hover:text-blue-800 no-underline" href="/logout">Logout</a>
                     </li>                
                 @endif
             </ul>

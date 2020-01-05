@@ -11405,6 +11405,16 @@ video {
   font-family: "Nova Square", cursive;
 }
 
+a {
+  text-decoration: underline;
+  color: #90cdf4;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
 .form-input {
   border-width: 1px;
   color: #dd6b20;
@@ -11487,6 +11497,7 @@ video {
   padding-bottom: 0;
   margin: 0.5rem;
   color: #f7fafc;
+  text-decoration: none;
 }
 
 .button:hover {
@@ -11508,6 +11519,7 @@ video {
   padding-bottom: 0;
   margin: 0.5rem;
   color: #f7fafc;
+  text-decoration: none;
 }
 
 .button-dark:hover {

@@ -12,8 +12,8 @@
                 <th>Add</th>
             </thead>
             <tr>
-                <td class="pl-2"><a href="{{ route('all-species') }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">Species</a></td>
-                <td><a href="{{ route('new-species') }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">New</a></td>
+                <td class="pl-2"><a href="{{ route('all-species') }}">Species</a></td>
+                <td><a href="{{ route('new-species') }}">New</a></td>
             </tr>
         </table>
 
