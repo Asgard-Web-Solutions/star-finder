@@ -20,6 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout');
 
+Route::get('/NewCharacter', 'characterController@create')->name('new-character');
+Route::post('/NewCharacter', 'characterController@save')->name('save-character');
+
 Route::get('/acp', 'HomeController@acp')->name('acp');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
 Route::get('/acp/species/new', 'SpeciesController@create')->name('new-species');
