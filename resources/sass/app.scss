@@ -74,3 +74,7 @@ a:hover {
 .button-dark a{
     @apply text-lg;
 }
+
+.role-tag {
+    @apply no-underline text-white p-1 text-sm rounded-lg;
+}

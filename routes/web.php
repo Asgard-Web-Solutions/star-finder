@@ -35,3 +35,10 @@ Route::get('/acp/users', 'UserController@index')->name('all-users');
 Route::get('/acp/user/{id}', 'UserController@show')->name('user');
 Route::get('/acp/user/{id}/edit', 'UserController@edit')->name('edit-user');
 Route::post('/acp/user/{id}/edit', 'UserController@update')->name('update-user');
+
+Route::get('/acp/roles', 'RoleController@index')->name('all-roles');
+Route::get('/acp/role/{id}', 'RoleController@show')->name('role');
+Route::get('/acp/role/{id}/edit', 'RoleController@edit')->name('edit-role');
+Route::post('/acp/role/{id}/edit', 'RoleController@update')->name('update-role');
+Route::get('/acp/newRole', 'RoleController@create')->name('new-role');
+Route::post('/acp/newRole', 'RoleController@store')->name('save-role');
