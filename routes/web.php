@@ -30,3 +30,8 @@ Route::post('/acp/species/new', 'SpeciesController@save')->name('save-species');
 Route::get('/acp/species/{id}', 'SpeciesController@show')->name('species');
 Route::get('/acp/species/{id}/edit', 'SpeciesController@edit')->name('edit-species');
 Route::post('/acp/species/{id}/edit', 'SpeciesController@update')->name('update-species');
+
+Route::get('/acp/users', 'UserController@index')->name('all-users');
+Route::get('/acp/user/{id}', 'UserController@show')->name('user');
+Route::get('/acp/user/{id}/edit', 'UserController@edit')->name('edit-user');
+Route::post('/acp/user/{id}/edit', 'UserController@update')->name('update-user');
