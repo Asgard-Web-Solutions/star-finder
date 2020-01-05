@@ -1,21 +1,39 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="bg-gray-800 rounded-b rounded-t-lg w-1/3 max-w-sm my-auto text-gray-100">
-        <div class="bg-gray-300 text-blue-400 shadow-lg rounded-t w-full my-auto text-center">
-            <h1 class="text-orange-600 text-2xl">Game Elements</h1>
+
+    <div class="card w-2/12 mr-3">
+        <div class="card-header">
+            <h1>Manage Site</h1>
         </div>
 
-        <table class="p-2 w-full">
-            <thead>
-                <th>Game Element</th>
-                <th>Add</th>
-            </thead>
-            <tr>
-                <td class="pl-2"><a href="{{ route('all-species') }}">Species</a></td>
-                <td><a href="{{ route('new-species') }}">New</a></td>
-            </tr>
-        </table>
+        <div class="card-body text-center">
+            <table class="m-auto">
+                <thead>
+                    <th>Site Elements</th>
+                </thead>
+                <tr>
+                    <td><a href="{{ route('all-users') }}">Manage Users</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
+
+    <div class="card w-1/4">
+        <div class="card-header">
+            <h1>Game Elements</h1>
+        </div>
+
+        <div class="card-body">
+            <table class="m-auto">
+                <thead>
+                    <th>Game Element</th>
+                </thead>
+                <tr>
+                    <td><a href="{{ route('all-species') }}">Species</a></td>
+                </tr>
+            </table>
+        </div>
     </div>
 @endsection

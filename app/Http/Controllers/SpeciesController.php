@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use App\Species;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,8 @@ class SpeciesController extends Controller
 
         $species->save();
 
+        Alert::toast('New Species Added', 'success');
+
         return redirect()->route('all-species');
     }
 
@@ -38,6 +41,7 @@ class SpeciesController extends Controller
         $species = Species::find($id);
 
         if (!$id) {
+            Alert::toast('Species Not Found', 'error');
             return redirect()->route('all-species');
         }
 
@@ -51,6 +55,7 @@ class SpeciesController extends Controller
         $species = Species::find($id);
 
         if (!$species) {
+            Alert::toast('Species Not Found', 'error');
             return redirect()->route('all-species');
         }
 
@@ -66,6 +71,8 @@ class SpeciesController extends Controller
         $species->name = $request->name;
         $species->description = $request->description;
         $species->save();
+
+        Alert::toast('Species Updated', 'success');
 
         return redirect()->route('all-species');
     }
