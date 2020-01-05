@@ -24,3 +24,6 @@ Route::get('/acp', 'HomeController@acp')->name('acp');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
 Route::get('/acp/species/new', 'SpeciesController@create')->name('new-species');
 Route::post('/acp/species/new', 'SpeciesController@save')->name('save-species');
+Route::get('/acp/species/{id}', 'SpeciesController@show')->name('species');
+Route::get('/acp/species/{id}/edit', 'SpeciesController@edit')->name('edit-species');
+Route::post('/acp/species/{id}/edit', 'SpeciesController@update')->name('update-species');

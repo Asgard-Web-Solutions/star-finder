@@ -6,10 +6,15 @@
             <h1 class="text-orange-600 text-2xl">Game Elements</h1>
         </div>
 
-        <table>
+        <table class="p-2 w-full">
+            <thead>
+                <th>Game Element</th>
+                <th>Add</th>
+            </thead>
             <tr>
-                <td><a href="{{ route('all-species') }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">Species</a></td>
+                <td class="pl-2"><a href="{{ route('all-species') }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">Species</a></td>
                 <td><a href="{{ route('new-species') }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">New</a></td>
+            </tr>
         </table>
 
     </div>

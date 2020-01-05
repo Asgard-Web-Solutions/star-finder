@@ -29,6 +29,42 @@ class SpeciesController extends Controller
 
         $species->save();
 
-        return redirect()->route('acp');
+        return redirect()->route('all-species');
+    }
+
+    public function show($id)
+    {
+        $species = Species::find($id);
+
+        if (!$id) {
+            return redirect()->route('all-species');
+        }
+
+        return view('acp.species.show', [
+            'species' => $species,
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $species = Species::find($id);
+        
+        if (!$species) {
+            return redirect()->route('all-species');
+        }
+
+        return view('acp.species.edit', [
+            'species' => $species,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $species = Species::find($id);
+
+        $species->name = $request->name;
+        $species->save();
+
+        return redirect()->route('all-species');
     }
 }

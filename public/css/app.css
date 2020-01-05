@@ -11444,6 +11444,82 @@ video {
   font-weight: 700;
 }
 
+.card {
+  background-color: #2d3748;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  width: 33.333333%;
+  max-width: 24rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #f7fafc;
+}
+
+.card-header {
+  background-color: #e2e8f0;
+  color: #63b3ed;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: center;
+}
+
+.card-body {
+  padding: 0.5rem;
+}
+
+.card-header h1 {
+  color: #dd6b20;
+  font-size: 1.5rem;
+}
+
+.button {
+  background-color: #dd6b20;
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0.5rem;
+  color: #f7fafc;
+}
+
+.button:hover {
+  background-color: #ed8936;
+  color: #2a4365;
+  font-weight: 700;
+}
+
+.button a {
+  font-size: 1.125rem;
+}
+
+.button-dark {
+  background-color: #7b341e;
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0.5rem;
+  color: #f7fafc;
+}
+
+.button-dark:hover {
+  background-color: #9c4221;
+  color: #bee3f8;
+  font-weight: 700;
+}
+
+.button-dark a {
+  font-size: 1.125rem;
+}
+
 @media (min-width: 640px){
   .sm\:sr-only{
     position: absolute;

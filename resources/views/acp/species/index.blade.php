@@ -6,11 +6,18 @@
             <h1 class="text-orange-600 text-2xl">Species List</h1>
         </div>
 
-        <ul>
+        <table class="p-2 w-full">
+            <thead>
+                <th>Species Name</th>
+                <th>Edit Species</th>
+            </thead>
             @foreach ($species as $aspecies)
-                <li> {{ $aspecies->name }}</li>
+                <tr>
+                    <td class="pl-2"><a href="{{ route('species', $aspecies->id) }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">{{ $aspecies->name }}</a></td>
+                    <td><a href="{{ route('edit-species', $aspecies->id) }}" class="underline text-orange-500 hover:text-orange-400 hover:no-underline">Edit</a></td>
+                </tr>
             @endforeach
-        </ul>
+        </table>
 
         <div class="w-full text-right">
             <a href="{{ route('new-species') }}" class="form-button">Add Species</a>
