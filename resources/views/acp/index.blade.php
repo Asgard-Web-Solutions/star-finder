@@ -19,8 +19,7 @@
         </div>
     </div>
 
-
-    <div class="card w-1/4">
+    <div class="card w-2/12">
         <div class="card-header">
             <h1>Game Elements</h1>
         </div>
