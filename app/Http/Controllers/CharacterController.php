@@ -27,6 +27,11 @@ class CharacterController extends Controller
 
     public function save (Request $request){
 
+        $this->validate($request, [
+            'name' => 'required|string|max:25',
+            'species' => 'required|integer|exists:species,id',
+        ]);
+
         $character = new Character();
 
         $character->name = $request->name;

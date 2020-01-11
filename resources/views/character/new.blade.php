@@ -11,7 +11,11 @@
 
             <label for="name" class="form-label">character Name</label>
             <input type="text" class="form-input" name="name" id="name">
-
+            @error('name')
+                <span class="text-red-700" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
             <select name="species" class="form-input">
                 @foreach ($species as $aspecies)
                     <option value="{{$aspecies->id}}">{{$aspecies->name}}</option>
