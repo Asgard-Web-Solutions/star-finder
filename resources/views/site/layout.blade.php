@@ -22,9 +22,11 @@
                 <li class="mr-6">
                     <a class="text-blue-500 hover:text-blue-800 no-underline" href="/home">Character</a>
                 </li>
-                <li class="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800 no-underline" href="/acp">Admin Control Panel</a>
-                </li>
+                @can('view-acp')
+                    <li class="mr-6">
+                        <a class="text-blue-500 hover:text-blue-800 no-underline" href="/acp">Admin Control Panel</a>
+                    </li>
+                @endcan
                 @if (!Auth::check())
                     <li class="mr-6">
                         <a class="text-blue-500 hover:text-blue-800 no-underline" href="/login">Login</a>

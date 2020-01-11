@@ -8,23 +8,29 @@
             </div>
             <div class="card-body">
                 <strong>Name:</strong> {{ $user->name }}<br />
-                <strong>Email:</strong> {{ $user->email }}<br />
+                @can('view-pii', $user->id)
+                    <strong>Email:</strong> {{ $user->email }}<br />
+                @endcan
                 <strong>Roles:</strong>
                 @foreach ($user->roles as $role)
                     <span class="role-tag bg-{{ $role->color_class }}">{{ $role->name }}</span>
                 @endforeach
 
                 <br />
-                <div class="w-full text-right">
-                    <a href="{{ route('edit-user', $user->id) }}" class="button">Edit</a>
-                </div>
+                @can('edit-profile', $user->id)
+                    <div class="w-full text-right">
+                        <a href="{{ route('edit-user', $user->id) }}" class="button">Edit</a>
+                    </div>
+                @endcan
             </div>
         </div>
 
-        <div class="w-1/4 m-auto">
-            <div class="w-full text-right my-3">
-                <a href="{{ route('all-users') }}" class="button-dark">Back to User List</a>
+        @can('view-acp-users')
+            <div class="w-1/4 m-auto">
+                <div class="w-full text-right my-3">
+                    <a href="{{ route('all-users') }}" class="button-dark">Back to User List</a>
+                </div>
             </div>
-        </div>
+        @endcan
     </div>
 @endsection

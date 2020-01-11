@@ -23,7 +23,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/NewCharacter', 'characterController@create')->name('new-character');
 Route::post('/NewCharacter', 'characterController@save')->name('save-character');
 
-Route::get('/acp', 'HomeController@acp')->name('acp');
+Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
 Route::get('/acp/species/new', 'SpeciesController@create')->name('new-species');
 Route::post('/acp/species/new', 'SpeciesController@save')->name('save-species');
@@ -31,10 +31,10 @@ Route::get('/acp/species/{id}', 'SpeciesController@show')->name('species');
 Route::get('/acp/species/{id}/edit', 'SpeciesController@edit')->name('edit-species');
 Route::post('/acp/species/{id}/edit', 'SpeciesController@update')->name('update-species');
 
-Route::get('/acp/users', 'UserController@index')->name('all-users');
-Route::get('/acp/user/{id}', 'UserController@show')->name('user');
-Route::get('/acp/user/{id}/edit', 'UserController@edit')->name('edit-user');
-Route::post('/acp/user/{id}/edit', 'UserController@update')->name('update-user');
+Route::get('/acp/users', 'UserController@index')->name('all-users')->middleware('auth');
+Route::get('/profile/{id?}', 'UserController@show')->name('user')->middleware('auth');
+Route::get('/profile/{id}/edit', 'UserController@edit')->name('edit-user')->middleware('auth');
+Route::post('/profile/{id}/edit', 'UserController@update')->name('update-user')->middleware('auth');
 
 Route::get('/acp/roles', 'RoleController@index')->name('all-roles');
 Route::get('/acp/role/{id}', 'RoleController@show')->name('role');

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use App\User;
 use App\Species;
 use App\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -17,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -39,6 +41,11 @@ class HomeController extends Controller
 
     public function acp()
     {
+        if (Gate::denies('view-acp')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         return view('acp.index');
     }
 }
