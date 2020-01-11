@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role', 'user_role')->orderBy('name');
     }
+
+    public function characters()
+    {
+        return $this->hasMany('App\Character');
+    }
 }

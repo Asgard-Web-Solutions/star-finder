@@ -75,7 +75,7 @@ class UserController extends Controller
 
         $roles = Role::all();
         $availableRoles = array();
-        
+
         foreach ($roles as $role)
         {
             if (!$user->roles->contains($role))
@@ -106,7 +106,7 @@ class UserController extends Controller
         $user->save();
 
         Alert::toast('User Updated', 'success');
-        
+
         return redirect()->route('all-users');
     }
 
