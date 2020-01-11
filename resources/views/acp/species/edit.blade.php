@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="card">
+    <div class="card w-2/3">
         <div class="card-header">
             <h1>Update Species {{ $species->name }}</h1>
         </div>
@@ -9,11 +9,15 @@
             <form action="{{ route('update-species', $species->id) }}" method="POST">
                 @csrf
 
-                <label for="name" class="form-label">Species Name</label>
-                <input type="text" class="form-input" name="name" id="name" value="{{ $species->name }}">
+                <div>
+                    <label for="name" class="form-label">Species Name</label>
+                    <input type="text" class="form-input" name="name" id="name" value="{{ $species->name }}">
+                </div>
 
-                <label for="name" class="form-label">Species description</label>
-                <textarea class="form-input" name="description" id="description">{{ $species->description }}</textarea>
+                <div>
+                    <label for="name" class="form-label">Species Description</label>
+                    <textarea class="form-input" name="description" id="description">{{ $species->description }}</textarea>
+                </div>
 
                 <input type="submit" class="form-button" value="Update Species">
                 <a href="{{ route('all-species') }}" class="button-dark">Cancel</a>

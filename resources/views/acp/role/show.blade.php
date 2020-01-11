@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="flex-row w-full">
+    <div class="w-full">
         <div class="card w-1/4 m-auto">
             <div class="card-header">
                 <h1>{{ $role->name }}</h1>
@@ -9,7 +9,7 @@
             <div class="card-body">
                 <strong>Name:</strong> {{ $role->name }}<br />
                 <strong>Color Class:</strong> {{ $role->color_class }}<br />
-                
+
                 <br /><strong>Tag Preview:</strong> <span class="role-tag bg-{{ $role->color_class }}">{{ $role->name }}</span>
                 <br /><br />
                 <div class="w-full text-right">

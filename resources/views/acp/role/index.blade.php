@@ -2,7 +2,7 @@
 
 @section('body')
 
-    <div class="flex-row w-full">
+    <div class="w-full">
         <div class="card w-3/12 m-auto">
             <div class="card-header">
                 <h1>Manage Roles</h1>

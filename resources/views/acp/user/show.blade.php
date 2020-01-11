@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="flex-row w-full">
+    <div class="w-full">
         <div class="card w-1/4 m-auto">
             <div class="card-header">
                 <h1>{{ $user->name }}</h1>
@@ -9,7 +9,7 @@
             <div class="card-body">
                 <strong>Name:</strong> {{ $user->name }}<br />
                 <strong>Email:</strong> {{ $user->email }}<br />
-                <strong>Roles:</strong> 
+                <strong>Roles:</strong>
                 @foreach ($user->roles as $role)
                     <span class="role-tag bg-{{ $role->color_class }}">{{ $role->name }}</span>
                 @endforeach
