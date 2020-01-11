@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Gate;
 use Alert;
 use App\User;
 use App\Role;
@@ -16,6 +18,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('view-acp-users')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $users = User::all();
 
         return view('acp.user.index', [
@@ -50,8 +57,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id = null)
     {
+        if (!$id)
+        {
+            $id = Auth::id();
+        }
+
+        if (Gate::denies('view-profile', $id)) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('user');
+        }
+
         $user = User::find($id);
 
         if (!$user) {
@@ -71,6 +88,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('edit-profile', $id)) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('user');
+        }
+
         $user = User::find($id);
 
         $roles = Role::all();
@@ -99,6 +121,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Gate::denies('edit-profile', $id)) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('user');
+        }
+
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
         $user = User::find($id);
 
         $user->name = $request->name;
@@ -123,6 +155,11 @@ class UserController extends Controller
 
     public function addRole(Request $request, $id)
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('user');
+        }
+
         $user = User::find($id);
 
         if (!$user->count()) {
@@ -154,6 +191,11 @@ class UserController extends Controller
 
     public function removeRole($user_id, $role_id)
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('user');
+        }
+
         $user = User::find($user_id);
 
         if (!$user->count()) {
@@ -168,7 +210,7 @@ class UserController extends Controller
         }
 
         if (!$user->roles->contains($role)) {
-            Alert::toast('User Is Not In ROle ' . $role->name, 'error');
+            Alert::toast('User Is Not In Role ' . $role->name, 'error');
             return redirect()->route('user', $user->id);
         }
 
