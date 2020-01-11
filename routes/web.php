@@ -42,3 +42,6 @@ Route::get('/acp/role/{id}/edit', 'RoleController@edit')->name('edit-role');
 Route::post('/acp/role/{id}/edit', 'RoleController@update')->name('update-role');
 Route::get('/acp/newRole', 'RoleController@create')->name('new-role');
 Route::post('/acp/newRole', 'RoleController@store')->name('save-role');
+
+Route::post('/acp/user/{id}/addRole', 'UserController@addRole')->name('add-user-role');
+Route::get('/acp/user/{user}/delRole/{role}', 'UserController@removeRole')->name('remove-user-role');
