@@ -24,7 +24,7 @@
                 </li>
                 <li class="mr-6">
                     <a class="text-blue-500 hover:text-blue-800 no-underline" href="/acp">Admin Control Panel</a>
-                </li>    
+                </li>
                 @if (!Auth::check())
                     <li class="mr-6">
                         <a class="text-blue-500 hover:text-blue-800 no-underline" href="/login">Login</a>
@@ -35,7 +35,7 @@
                 @else
                     <li class="mr-6">
                         <a class="text-blue-500 hover:text-blue-800 no-underline" href="/logout">Logout</a>
-                    </li>                
+                    </li>
                 @endif
             </ul>
         </nav>
@@ -43,7 +43,7 @@
         @include('sweetalert::alert')
 
         @php
-            $mainSize = "w-full";   
+            $mainSize = "w-full";
         @endphp
 
         <div class="flex-row flex w-full">
@@ -53,7 +53,26 @@
                 @endphp
 
                 <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
-                    <h2 class="text-orange-600 text-2xl underline">Character</h2>
+                    <div class="flex-row">
+                        <div class="w-full text-center">
+                            <h2 class="text-orange-600 text-2xl underline">Character</h2>
+                        </div>
+
+                        @if ($character == "none")
+                            <a class="button" href="{{ route ('new-character') }}">create charater</a>
+                        @else
+                            <div class="mt-5">
+                                <div class="card w-full">
+                                    <div class="card-header">
+                                    <h1>Your Character</h1>
+                                    </div>
+                                    <div class="card-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </aside>
             @endif
 

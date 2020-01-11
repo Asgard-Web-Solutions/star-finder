@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Species;
+use App\Character;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $character = "Hello World";
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
