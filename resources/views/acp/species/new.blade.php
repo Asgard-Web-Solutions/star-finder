@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('body')
-    <div class="card w-4/12">
+    <div class="card w-2/3">
         <div class="card-header">
             <h1>Create Species</h1>
         </div>
@@ -9,11 +9,15 @@
             <form action="{{ route('save-species') }}" method="POST">
                 @csrf
 
-                <label for="name" class="form-label">Species Name</label>
-                <input type="text" class="form-input" name="name" id="name">
+                <div>
+                    <label for="name" class="form-label">Species Name</label>
+                    <input type="text" class="form-input" name="name" id="name">
+                </div>
 
-                <label for="name" class="form-label">Species description</label>
-                <textarea class="form-input" name="description" id="description"></textarea>
+                <div>
+                    <label for="name" class="form-label">Species Description</label>
+                    <textarea class="form-input" name="description" id="description"></textarea>
+                </div>
 
                 <input type="submit" class="form-button" value="Add Species">
                 <a href="{{ route('all-species') }}" class="button-dark">Cancel</a>

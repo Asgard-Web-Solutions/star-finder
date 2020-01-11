@@ -2,7 +2,7 @@
 
 @section('body')
 
-    <div class="flex-row w-full">
+    <div class="w-full">
         <div class="card w-5/12 m-auto">
             <div class="card-header">
                 <h1>Manage Users</h1>
@@ -22,7 +22,7 @@
                         </tr>
                     @endforeach
                 </table>
-            </div>    
+            </div>
         </div>
 
         <div class="w-4/12 m-auto">

@@ -11530,6 +11530,14 @@ a:hover {
   font-size: 1.125rem;
 }
 
+.role-tag {
+  text-decoration: none;
+  color: #fff;
+  padding: 0.25rem;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+}
+
 @media (min-width: 640px){
   .sm\:sr-only{
     position: absolute;

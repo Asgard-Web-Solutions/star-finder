@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Species;
 use App\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,16 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::id();
-        $character = Character::where('user_id', '=', $user_id)->first();
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
 
-        if (!$character) {
-            return view('home', [
-                'character' => "none",
-            ]);
-        }
-
-        // get species name here
+        $character = $user->characters->first();
 
         return view('home', [
             'character' => $character,
