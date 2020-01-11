@@ -205,7 +205,7 @@ class UserController extends Controller
         }
 
         if (!$user->roles->contains($role)) {
-            Alert::toast('User Is Not In ROle ' . $role->name, 'error');
+            Alert::toast('User Is Not In Role ' . $role->name, 'error');
             return redirect()->route('user', $user->id);
         }
 
