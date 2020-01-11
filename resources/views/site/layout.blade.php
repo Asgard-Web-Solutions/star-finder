@@ -53,25 +53,21 @@
                 @endphp
 
                 <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
-                    <div class="flex-row">
+                    <div class="w-full">
                         <div class="w-full text-center">
                             <h2 class="text-orange-600 text-2xl underline">Character</h2>
                         </div>
 
-                        @if ($character == "none")
-                            <a class="button" href="{{ route ('new-character') }}">create charater</a>
-                        @else
-                            <div class="mt-5">
-                                <div class="card w-full">
-                                    <div class="card-header">
-                                    <h1>Your Character</h1>
-                                    </div>
-                                    <div class="card-body">
-
-                                    </div>
+                        <div class="mt-5 w-10/12 m-auto">
+                            <div class="card w-full">
+                                <div class="card-header">
+                                <h1>{{ $character->name }}</h1>
+                                </div>
+                                <div class="card-body">
+                                    Species: {{ $character->species->name }}
                                 </div>
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </aside>
             @endif
