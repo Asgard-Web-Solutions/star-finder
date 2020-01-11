@@ -24,6 +24,11 @@ class SpeciesController extends Controller
 
     public function save(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:5000',
+        ]);
+        
         $species = new Species();
 
         $species->name = $request->name;
@@ -66,6 +71,11 @@ class SpeciesController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:5000',
+        ]);
+
         $species = Species::find($id);
 
         $species->name = $request->name;

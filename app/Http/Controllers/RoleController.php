@@ -40,6 +40,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|alpha_dash|max:24',
+            'color_class' => 'required|alpha_dash|max:24',
+        ]);
+
         $role = new Role();
 
         $role->name = $request->name;
@@ -90,6 +95,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|alpha_dash|max:24',
+            'color_class' => 'required|alpha_dash|max:24',
+        ]);
+
         $role = Role::find($id);
 
         $role->name = $request->name;

@@ -126,6 +126,11 @@ class UserController extends Controller
             return redirect()->route('user');
         }
 
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
         $user = User::find($id);
 
         $user->name = $request->name;
