@@ -168,15 +168,10 @@ class UserController extends Controller
         }
 
         $this->validate($request, [
-            'role' => 'required|integer|max:15',
+            'role' => 'required|integer|exists:roles,id|max:15',
         ]);
 
         $role = Role::find($request->role);
-
-        if (!$role->count()) {
-            Alert::toast('Invalid Role', 'error');
-            return redirect()->route('acp');
-        }
 
         if ($user->roles->contains($role)) {
             Alert::toast('User Already Has Role ' . $role->name, 'error');
