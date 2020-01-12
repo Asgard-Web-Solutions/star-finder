@@ -20,6 +20,10 @@ class PopulateSolarSystem extends Migration
         DB::table('systems')->insert([
             ['name' => 'Sol', 'location_id' => 1, 'star_type' => 1],
         ]);
+
+        DB::table('planets')->insert([
+            ['name' => 'Earth', 'system_id' => 1, 'size' => 12800, 'type' => 0, 'distance_from_star' => 147, 'moon_count' => 1]
+        ]);
     }
 
     /**
@@ -31,5 +35,6 @@ class PopulateSolarSystem extends Migration
     {
         DB::table('locations')->where('x', '=', '0')->where('y', '=', '0')->delete();
         DB::table('systems')->where('name', '=', 'Sol')->delete();
+        DB::table('planets')->where('name', '=', 'Earth')->delete();
     }
 }

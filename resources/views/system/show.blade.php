@@ -20,6 +20,34 @@
             </div>
         </div>
 
+        <br />
+        <div class="card w-4/12 m-auto">
+            <div class="card-header">
+                <h1>{{ $system->name }} Planets</h1>
+            </div>
+            <div class="card-body">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>Planet Name</th>
+                            <th>Distance</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    @foreach($system->planets as $planet)
+                        <tr>
+                            <td>{{ $planet->name }}</td>
+                            <td>{{ $planet->distance_from_star }} mkm</td>
+                            <td>{{ $planet->size }} km</td>
+                            <td>{{ $planet->type }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+
+
         <div class="text-right w-4/12 mt-2 m-auto">
             <a href="{{ route('locations') }}" class="button-dark">Go Back</a>
         </div>

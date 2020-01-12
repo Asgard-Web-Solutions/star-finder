@@ -20,7 +20,7 @@
                     <a class="text-blue-500 hover:text-blue-800 no-underline" href="/">Home</a>
                 </li>
                 <li class="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800 no-underline" href="/home">Character</a>
+                    <a class="text-blue-500 hover:text-blue-800 no-underline" href="/home">Play</a>
                 </li>
                 @can('view-acp')
                     <li class="mr-6">
@@ -49,9 +49,10 @@
         @endphp
 
         <div class="flex-row flex w-full">
-            @if (isset($character))
+            @if (isset($loadcharacter))
                 @php
                     $mainSize = "w-10/12";
+                    $character = $loadcharacter;
                 @endphp
 
                 <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
@@ -66,10 +67,29 @@
                                 <h1>{{ $character->name }}</h1>
                                 </div>
                                 <div class="card-body">
-                                    Species: {{ $character->species->name }}
+                                    <ul>
+                                        <li> Species: {{ $character->species->name }} </li>
+                                        <li> {{ __('common.money') }}: {{ __('common.money symbol') }}{{ $character->money }}</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mt-5 w-10/12 m-auto">
+                            <div class="card w-full">
+                                <div class="card-header">
+                                <h1>Location</h1>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li> System: {{ $character->planet->system->name }}</li>
+                                        <li> Planet: {{ $character->planet->name }} </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </aside>
             @endif

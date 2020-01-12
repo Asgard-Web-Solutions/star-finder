@@ -10,4 +10,9 @@ class System extends Model
     {
         return $this->hasOne('App\Location');
     }
+
+    public function planets()
+    {
+        return $this->hasMany('App\Planet')->orderBy('distance_from_star');
+    }
 }
