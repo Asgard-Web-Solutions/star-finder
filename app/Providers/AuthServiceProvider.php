@@ -27,7 +27,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('view-acp', function ($user) {
-            return $this->isAdmin($user);
+            if ($this->isAdmin($user)) { return true; }
+            if ($this->isGameMaster($user)) { return true; }
+            return false;
         });
 
         Gate::define('view-acp-users', function ($user) {
@@ -40,6 +42,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('manage-game-elements', function ($user) {
             return $this->isAdmin($user);
+        });
+
+        Gate::define('manage-characters', function ($user) {
+            return $this->isGameMaster($user);
         });
 
         Gate::define('view-profile', function ($user, $profile) {
@@ -82,5 +88,10 @@ class AuthServiceProvider extends ServiceProvider
     private function isAdmin($user) {
         $admin = Role::where('name', '=', 'Admin')->first();
         return $user->roles->contains($admin);
+    }
+
+    private function isGameMaster($user) {
+        $gm = Role::where('name', '=', 'Game Master')->first();
+        return $user->roles->contains($gm);
     }
 }

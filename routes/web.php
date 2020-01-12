@@ -20,8 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/NewCharacter', 'characterController@create')->name('new-character');
-Route::post('/NewCharacter', 'characterController@save')->name('save-character');
+Route::get('/NewCharacter', 'characterController@create')->name('new-character')->middleware('auth');
+Route::post('/NewCharacter', 'characterController@save')->name('save-character')->middleware('auth');
+Route::get('/acp/characters', 'characterController@index')->name('all-characters')->middleware('auth');
+Route::get('/acp/character/{id}', 'characterController@show')->name('character')->middleware('auth');
 
 Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
