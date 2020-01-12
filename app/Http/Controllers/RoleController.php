@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alert;
+use Gate;
 use App\Role;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,11 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $roles = Role::all();
 
         return view('acp.role.index', [
@@ -29,6 +35,11 @@ class RoleController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         return view('acp.role.new');
     }
 
@@ -40,6 +51,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $this->validate($request, [
             'name' => 'required|alpha_dash|max:24',
             'color_class' => 'required|alpha_dash|max:24',
@@ -64,6 +80,11 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $role = Role::find($id);
 
         return view('acp.role.show', [
@@ -79,6 +100,11 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $role = Role::find($id);
 
         return view('acp.role.edit', [
@@ -95,6 +121,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Gate::denies('manage-roles')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $this->validate($request, [
             'name' => 'required|alpha_dash|max:24',
             'color_class' => 'required|alpha_dash|max:24',

@@ -38,6 +38,10 @@ class AuthServiceProvider extends ServiceProvider
             return $this->isAdmin($user);
         });
 
+        Gate::define('manage-game-elements', function ($user) {
+            return $this->isAdmin($user);
+        });
+
         Gate::define('view-profile', function ($user, $profile) {
             if ($user->id == $profile) {
                 return true;
