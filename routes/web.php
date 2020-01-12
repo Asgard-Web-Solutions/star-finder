@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/NewCharacter', 'characterController@create')->name('new-character');
@@ -45,3 +45,9 @@ Route::post('/acp/newRole', 'RoleController@store')->name('save-role');
 
 Route::post('/acp/user/{id}/addRole', 'UserController@addRole')->name('add-user-role');
 Route::get('/acp/user/{user}/delRole/{role}', 'UserController@removeRole')->name('remove-user-role');
+
+Route::get('/acp/map', 'LocationController@index')->name('locations')->middleware('auth');
+Route::get('/acp/systems', 'SystemController@index')->name('all-systems')->middleware('auth');
+Route::get('/acp/system/{id}', 'SystemController@show')->name('acp-system')->middleware('auth');
+Route::get('/acp/system/{id}/edit', 'SystemController@edit')->name('edit-system')->middleware('auth');
+Route::post('/acp/system/{id}/edit', 'SystemController@update')->name('update-system')->middleware('auth');

@@ -28,6 +28,7 @@
 
                 <ul>
                     <li><a href="{{ route('all-species') }}">Species</a></li>
+                    <li><a href="{{ route('locations') }}">Locations</a></li>
                 </ul>
             </div>
         </div>
