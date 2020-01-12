@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCharactersTable extends Migration
+class CreateSystemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateCharactersTable extends Migration
      */
     public function up()
     {
-        Schema::create('characters', function (Blueprint $table) {
+        Schema::create('systems', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
-            $table->string('name', 25);
-            $table->bigInteger('species_id');
-            $table->bigInteger('faction_id');
-            $table->integer('planet_id');
-            $table->integer('money');
-            $table->softDeletes();
+            $table->text('name');
+            $table->text('description')->nullable();
+            $table->integer('location_id');
+            $table->integer('star_type');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateCharactersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('characters');
+        Schema::dropIfExists('systems');
     }
 }

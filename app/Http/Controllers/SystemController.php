@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Alert;
 use Gate;
-use App\Role;
+use App\System;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class SystemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if (Gate::denies('manage-roles')) {
-            Alert::toast('Permission Denied', 'warning');
-            return redirect('/');
-        }
-
-        $roles = Role::all();
-
-        return view('acp.role.index', [
-            'roles' => $roles,
-        ]);
+        //
     }
 
     /**
@@ -35,12 +25,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('manage-roles')) {
-            Alert::toast('Permission Denied', 'warning');
-            return redirect('/');
-        }
-
-        return view('acp.role.new');
+        //
     }
 
     /**
@@ -51,25 +36,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::denies('manage-roles')) {
-            Alert::toast('Permission Denied', 'warning');
-            return redirect('/');
-        }
-
-        $this->validate($request, [
-            'name' => 'required|alpha_dash|max:24',
-            'color_class' => 'required|alpha_dash|max:24',
-        ]);
-
-        $role = new Role();
-
-        $role->name = $request->name;
-        $role->color_class = $request->color_class;
-        $role->save();
-
-        Alert::toast('Role Created', 'success');
-
-        return redirect()->route('all-roles');
+        //
     }
 
     /**
@@ -80,15 +47,15 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        if (Gate::denies('manage-roles')) {
+        if (Gate::denies('manage-game-elements')) {
             Alert::toast('Permission Denied', 'warning');
             return redirect('/');
         }
 
-        $role = Role::find($id);
+        $system = System::find($id);
 
-        return view('acp.role.show', [
-            'role' => $role,
+        return view('system.show', [
+            'system' => $system,
         ]);
     }
 
@@ -100,15 +67,15 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        if (Gate::denies('manage-roles')) {
+        if (Gate::denies('manage-game-elements')) {
             Alert::toast('Permission Denied', 'warning');
             return redirect('/');
         }
 
-        $role = Role::find($id);
+        $system = System::find($id);
 
-        return view('acp.role.edit', [
-            'role' => $role,
+        return view('system.edit', [
+            'system' => $system,
         ]);
     }
 
@@ -121,24 +88,23 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Gate::denies('manage-roles')) {
+        if (Gate::denies('manage-game-elements')) {
             Alert::toast('Permission Denied', 'warning');
             return redirect('/');
         }
 
         $this->validate($request, [
-            'name' => 'required|alpha_dash|max:24',
-            'color_class' => 'required|alpha_dash|max:24',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:5000',
         ]);
 
-        $role = Role::find($id);
+        $system = System::find($id);
 
-        $role->name = $request->name;
-        $role->color_class = $request->color_class;
+        $system->name = $request->name;
+        $system->description = $request->description;
+        $system->save();
 
-        $role->save();
-
-        return redirect()->route('all-roles');
+        return redirect()->route('acp-system', $system->id);
     }
 
     /**

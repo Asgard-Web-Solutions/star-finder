@@ -73,6 +73,8 @@ class CharacterController extends Controller
         $character->user_id = Auth::id();
         $character->species_id = $request->species;
         $character->faction_id	= 0;
+        $character->planet_id = 1; // Earth!
+        $character->money = config('game.starting_money');
 
         $character->save();
 

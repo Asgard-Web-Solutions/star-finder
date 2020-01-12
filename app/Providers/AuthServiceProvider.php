@@ -40,6 +40,10 @@ class AuthServiceProvider extends ServiceProvider
             return $this->isAdmin($user);
         });
 
+        Gate::define('manage-game-elements', function ($user) {
+            return $this->isAdmin($user);
+        });
+
         Gate::define('manage-characters', function ($user) {
             return $this->isGameMaster($user);
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use Alert;
 use App\Species;
 use Illuminate\Http\Request;
@@ -10,6 +11,11 @@ class SpeciesController extends Controller
 {
     public function index()
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $species = Species::all();
 
         return view('acp.species.index', [
@@ -19,11 +25,21 @@ class SpeciesController extends Controller
 
     public function create()
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         return view('acp.species.new');
     }
 
     public function save(Request $request)
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:5000',
@@ -43,6 +59,11 @@ class SpeciesController extends Controller
 
     public function show($id)
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $species = Species::find($id);
 
         if (!$id) {
@@ -57,6 +78,11 @@ class SpeciesController extends Controller
 
     public function edit($id)
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $species = Species::find($id);
 
         if (!$species) {
@@ -71,6 +97,11 @@ class SpeciesController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:5000',

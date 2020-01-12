@@ -15,4 +15,9 @@ class Character extends Model
     {
         return $this->belongsTo('App\Species');
     }
+
+    public function planet()
+    {
+        return $this->belongsTo('App\Planet');
+    }
 }
