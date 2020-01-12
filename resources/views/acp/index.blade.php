@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="card w-2/12 h-32">
+    <div class="card w-2/12 h-32 mr-3">
         <div class="card-header">
             <h1>Game Elements</h1>
         </div>
@@ -27,6 +27,19 @@
 
             <ul>
                 <li><a href="{{ route('all-species') }}">Species</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card w-2/12 h-32 mr-3">
+        <div class="card-header">
+            <h1>players</h1>
+        </div>
+
+        <div class="card-body text-center">
+
+            <ul>
+                @can('manage-characters')<li><a href="{{ route('all-characters') }}">Characters</a></li>@endcan
             </ul>
         </div>
     </div>

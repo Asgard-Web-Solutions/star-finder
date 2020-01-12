@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
+use Gate;
 use App\Character;
 use App\Species;
 use Illuminate\Http\Request;
@@ -9,6 +11,39 @@ use Illuminate\Support\Facades\Auth;
 
 class CharacterController extends Controller
 {
+    public function index() {
+
+        if (Gate::denies('manage-characters')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('home');
+        }
+
+        $characters = Character::all();
+
+        return view('character.index', [
+            'characters' => $characters,
+        ]);
+    }
+
+    public function show($id)
+    {
+        if (Gate::denies('manage-characters')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect()->route('home');
+        }
+        $character = Character::find($id);
+
+        if (!$character) {
+            Alert::toast('character Not Found', 'error');
+            return redirect()->route('all-characters');
+        }
+
+        return view('character.show', [
+            'character' => $character,
+        ]);
+    }
+
+
     public function create () {
 
         $user_id = Auth::id();
