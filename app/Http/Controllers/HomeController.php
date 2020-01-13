@@ -35,7 +35,7 @@ class HomeController extends Controller
         $character = $user->characters->first();
 
         return view('home', [
-            'loadcharacter' => $character,
+            'loadCharacter' => $character,
         ]);
     }
 

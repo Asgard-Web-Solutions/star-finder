@@ -49,10 +49,10 @@
         @endphp
 
         <div class="flex-row flex w-full">
-            @if (isset($loadcharacter))
+            @if (isset($loadCharacter))
                 @php
                     $mainSize = "w-10/12";
-                    $character = $loadcharacter;
+                    $character = $loadCharacter;
                 @endphp
 
                 <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">

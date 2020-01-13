@@ -27,6 +27,8 @@ class InsertDefaultRoles extends Migration
      */
     public function down()
     {
-        
+        DB::table('roles')->where('name', '=', 'Admin')->delete();
+        DB::table('roles')->where('name', '=', 'Moderator')->delete();
+        DB::table('roles')->where('name', '=', 'Game Master')->delete();
     }
 }

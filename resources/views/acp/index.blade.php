@@ -3,7 +3,7 @@
 @section('body')
 
 
-    <div class="card w-2/12 mr-3 h-32">
+    <div class="card w-2/12 m-2 h-32">
         <div class="card-header">
             <h1>Manage Site</h1>
         </div>
@@ -20,7 +20,7 @@
 
 
     @can('manage-game-elements')
-        <div class="card w-2/12 h-32">
+        <div class="card w-2/12 m-2 h-32">
             <div class="card-header">
                 <h1>Game Elements</h1>
             </div>
@@ -35,9 +35,9 @@
         </div>
     @endcan
 
-    <div class="card w-2/12 h-32 mr-3">
+    <div class="card w-2/12 h-32 m-2">
         <div class="card-header">
-            <h1>players</h1>
+            <h1>Player Elements</h1>
         </div>
 
         <div class="card-body text-center">

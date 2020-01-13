@@ -20,4 +20,9 @@ class Character extends Model
     {
         return $this->belongsTo('App\Planet');
     }
+
+    public function bases()
+    {
+        return $this->hasMany('App\Base');
+    }
 }

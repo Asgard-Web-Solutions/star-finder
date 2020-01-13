@@ -25,6 +25,10 @@ Route::post('/NewCharacter', 'characterController@save')->name('save-character')
 Route::get('/acp/characters', 'characterController@index')->name('all-characters')->middleware('auth');
 Route::get('/acp/character/{id}', 'characterController@show')->name('character')->middleware('auth');
 
+Route::get('/planet', 'GameController@planet')->name('visit-planet')->middleware('auth');
+Route::get('/construct/base', 'BaseController@create')->name('create-base')->middleware('auth');
+Route::post('/construct/base', 'BaseController@store')->name('purchase-base')->middleware('auth');
+
 Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
 Route::get('/acp/species/new', 'SpeciesController@create')->name('new-species');
