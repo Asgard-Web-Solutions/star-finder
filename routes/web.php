@@ -53,3 +53,10 @@ Route::get('/acp/systems', 'SystemController@index')->name('all-systems')->middl
 Route::get('/acp/system/{id}', 'SystemController@show')->name('acp-system')->middleware('auth');
 Route::get('/acp/system/{id}/edit', 'SystemController@edit')->name('edit-system')->middleware('auth');
 Route::post('/acp/system/{id}/edit', 'SystemController@update')->name('update-system')->middleware('auth');
+
+Route::get('/acp/stars', 'StarTypeController@index')->name('all-star-types')->middleware('auth');
+Route::get('/acp/star/new', 'StarTypeController@create')->name('create-star-type')->middleware('auth');
+Route::post('/acp/star/new', 'StarTypeController@store')->name('store-star-type')->middleware('auth');
+Route::get('/acp/star/{id}', 'StarTypeController@show')->name('acp-star-type')->middleware('auth');
+Route::get('/acp/star/{id}/edit', 'StarTypeController@edit')->name('edit-star-type')->middleware('auth');
+Route::post('/acp/star/{id}/edit', 'StarTypeController@update')->name('update-star-type')->middleware('auth');
