@@ -9,7 +9,7 @@
                 <h1>Base Construction</h1>
             </div>
             <div class="card-body">
-                Current Bases: {{ $bases->count() }} / {{ config('game.max_bases_per_planet') }}<br />
+                Current Bases on {{ $loadCharacter->planet->name }}: {{ $bases->count() }} / {{ config('game.max_bases_per_planet') }}<br />
                 Cost: 
                     @if ( $loadCharacter->money < config('game.cost_new_base'))
                         {{ __('common.money symbol') }}<span class="text-red-700">{{ config('game.cost_new_base') }}</span>
