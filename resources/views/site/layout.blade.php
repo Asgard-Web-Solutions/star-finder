@@ -89,7 +89,23 @@
                             </div>
                         </div>
 
-
+                        <div class="mt-5 w-10/12 m-auto">
+                            <div class="card w-full">
+                                <div class="card-header">
+                                <h1>In Progress</h1>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        @foreach ($character->actions as $action)
+                                            <li class="text-sm"> 
+                                                {{ $action->title }}
+                                                <br />{{ $action->finishes_at }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </aside>
             @endif

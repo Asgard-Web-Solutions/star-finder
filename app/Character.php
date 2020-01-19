@@ -25,4 +25,9 @@ class Character extends Model
     {
         return $this->hasMany('App\Base');
     }
+
+    public function actions()
+    {
+        return $this->hasMany('App\Action');
+    }
 }

@@ -61,6 +61,17 @@ class BaseController extends Controller
 
         $base->save();
 
+        $actionDetails = array(
+            'character' => $character->id,
+            'title' => "New Base - " . $character->planet->name,
+            'type' => 'construction',
+            'controller' => 'base',
+            'target' => $base->id,
+            'seconds' => config('game.time_new_base'),
+        );
+
+        $this->makeAction($actionDetails);
+
         $character->money = $character->money - config('game.cost_new_base');
         $character->save();
 
