@@ -25,7 +25,7 @@
         <div class="w-full flex">
             @foreach ($bases as $base)
                 <br />
-                <div class="card w-3/12 mr-2">
+                <div class="card w-4/12 mr-2">
                     <div class="card-header">
                         <h1>Universal Base #{{ $base->id }}</h1>
                     </div>
@@ -37,7 +37,32 @@
                         @endif
 
                         @if ($base->status == "completed")
-                            Level: {{ $base->level }}
+                            <h2>Level: {{ $base->level }}</h2>
+
+                            <table class="w-full">
+                                <thead>
+                                    <th>Facility</th>
+                                    <th>Level</th>
+                                </thead>
+                                @foreach ($base->facilities as $facility)
+                                    <tr>
+                                        <td>{{ $facility->facility_type->name }}</td>
+                                        <td>
+                                            @if ($facility->status == "constructing")
+                                                <span class="text-yellow-500">Under Construction</span>
+                                            @else
+                                                {{ $facility->level }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+
+                            <div class="w-full text-right mt-3">
+                                @if ($base->facilities->count() < $base->level )
+                                    <a href="{{ route('new-facility', $base->id) }}" class="button">Build a Facility</a>
+                                @endif
+                            </div>
                         @endif
                     </div>
                 </div>

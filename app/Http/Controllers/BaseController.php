@@ -17,9 +17,12 @@ class BaseController extends Controller
         $bases = Base::where('character_id', '=', $character->id)
             ->where('planet_id', '=', $character->planet_id)->get();
         
+        $newCost = $this->baseUpgradeCost(1);
+
         return view('game.base.new', [
             'loadCharacter' => $character,
             'bases' => $bases,
+            'newCost' => $newCost,
         ]);
     }
 
@@ -46,7 +49,9 @@ class BaseController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($character->money < config('game.cost_new_base')) {
+        $baseCost = $this->baseUpgradeCost(1);
+
+        if ($character->money < $baseCost['money']) {
             Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
             return redirect()->route('visit-planet');
         }
@@ -72,7 +77,7 @@ class BaseController extends Controller
 
         $this->makeAction($actionDetails);
 
-        $character->money = $character->money - config('game.cost_new_base');
+        $character->money = $character->money - $baseCost['money'];
         $character->save();
 
         Alert::success("Base Construction Started");

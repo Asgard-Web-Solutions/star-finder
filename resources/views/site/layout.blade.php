@@ -10,6 +10,8 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+        <script src="https://kit.fontawesome.com/96570d91e6.js" crossorigin="anonymous"></script>
+
         <title>@yield('title')</title>
     </head>
     <body class="bg-gray-900">

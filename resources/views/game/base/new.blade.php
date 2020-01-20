@@ -12,9 +12,9 @@
                 Current Bases on {{ $loadCharacter->planet->name }}: {{ $bases->count() }} / {{ config('game.max_bases_per_planet') }}<br />
                 Cost: 
                     @if ( $loadCharacter->money < config('game.cost_new_base'))
-                        {{ __('common.money symbol') }}<span class="text-red-700">{{ config('game.cost_new_base') }}</span>
+                        {{ __('common.money symbol') }}<span class="text-red-700">{{ $newCost['money'] }}</span>
                     @else
-                        {{ __('common.money symbol') }}{{ config('game.cost_new_base') }}
+                        {{ __('common.money symbol') }}{{ $newCost['money'] }}
                     @endif
                 <br />
 

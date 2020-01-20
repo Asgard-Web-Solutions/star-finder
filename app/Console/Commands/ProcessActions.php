@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Action;
 use App\Base;
+use App\Action;
+use App\Facility;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -57,6 +58,19 @@ class ProcessActions extends Command
                     $action->delete();
                 }
                 
+            }
+
+            if ($action->controller == "facility") {
+
+                if ($action->type == "construction") {
+                    $facility = Facility::find($action->target_id);
+
+                    $facility->status = 'completed';
+                    $facility->mined_at = $action->getOriginal('finishes_at');
+                    $facility->save();
+
+                    $action->delete();
+                }
             }
 
         }

@@ -8,4 +8,5 @@ return [
     'cost_new_base' => 250,
 
     'time_new_base' => 300,
+    'time_new_facility' => 300,
 ];
