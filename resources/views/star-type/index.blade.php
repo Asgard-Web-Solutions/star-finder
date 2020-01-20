@@ -5,12 +5,12 @@
     <div class="w-full">
         <div class="card w-1/3 m-auto">
             <div class="card-header">
-                <h1>Star type List</h1>
+                <h1>stars</h1>
             </div>
             <div class="card-body">
                 <table class="p-2 w-full text-center">
                     <thead>
-                        <th>Star type</th>
+                        <th>star type</th>
                         <th>Edit star</th>
                     </thead>
                     @foreach ($stars as $star)

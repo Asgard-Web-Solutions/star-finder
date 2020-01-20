@@ -96,7 +96,21 @@ class StarTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
+        $startype = StarType::find($id);
+
+        if (!$startype) {
+            Alert::toast('Species Not Found', 'error');
+            return redirect()->route('all-star-types');
+        }
+
+        return view('star-type.edit', [
+            'star' => $startype,
+        ]);
     }
 
     /**
@@ -108,7 +122,26 @@ class StarTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'diameter' => 'integer|max:32000',
+            'color' => 'string|max:20',
+        ]);
+
+        $star = StarType::find($id);
+
+        $star->type = $request->name;
+        $star->diameter = $request->diameter;
+        $star->save();
+
+        Alert::toast('star type Updated', 'success');
+
+        return redirect()->route('all-star-types');
     }
 
     /**
