@@ -15,4 +15,9 @@ class Base extends Model
     {
         return $this->hasMany('App\Facility');
     }
+
+    public function planet()
+    {
+        return $this->belongsTo('App\Planet');
+    }
 }

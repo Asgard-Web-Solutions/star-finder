@@ -104,4 +104,9 @@ class Controller extends BaseController
         if (is_nan($cost['gas'])) { $cost['gas'] = 0; }
         return $cost;
     }
+
+    public function maxBaseLevel($base)
+    {
+        return floor($base->planet->size / 2000);
+    }
 }

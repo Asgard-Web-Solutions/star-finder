@@ -15,7 +15,12 @@ class PopulateFacilityTypesTable extends Migration
     {
         DB::table('facility_types')->insert([
             ['name' => 'Titanium Mine', 'required_level' => 1, 'type' => 'mine'],
+        ]);
+        
+        DB::table('facility_types')->insert([
+            ['name' => 'Gas Mine', 'required_level' => 2, 'type' => 'mine'],
         ]);    
+
     }
 
     /**
@@ -26,5 +31,6 @@ class PopulateFacilityTypesTable extends Migration
     public function down()
     {
         DB::table('facility_types')->where('name', '=', 'Titanium Mine')->delete();
+        DB::table('facility_types')->where('name', '=', 'Gas Mine')->delete();
     }
 }

@@ -20,6 +20,16 @@ class GameController extends Controller
         $bases = Base::where('character_id', '=', $character->id)
             ->where('planet_id', '=', $planet->id)->get();
 
+        $planet->ore = 0;
+        $planet->gas = 0;
+
+        foreach($bases as $base) {
+            $planet->ore = $planet->ore + $base->ore;
+            $planet->gas = $planet->gas + $base->gas;
+
+            $base->max_level = $this->maxBaseLevel($base);
+        }
+
         return view('game.planet', [
             'loadCharacter' => $character,
             'planet' => $planet,

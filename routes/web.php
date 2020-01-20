@@ -28,6 +28,8 @@ Route::get('/acp/character/{id}', 'characterController@show')->name('character')
 Route::get('/planet', 'GameController@planet')->name('visit-planet')->middleware('auth');
 Route::get('/construct/base', 'BaseController@create')->name('create-base')->middleware('auth');
 Route::post('/construct/base', 'BaseController@store')->name('purchase-base')->middleware('auth');
+Route::get('/construct/base/{id}/upgrade', 'BaseController@upgrade')->name('upgrade-base')->middleware('auth');
+Route::post('/construct/base/{id}/upgrade', 'BaseController@upgradeBase')->name('upgrade-base')->middleware('auth');
 Route::get('/construct/facility/{id}', 'FacilityController@create')->name('new-facility')->middleware('auth');
 Route::get('/construct/facility/{id}/{build}', 'FacilityController@store')->name('create-facility')->middleware('auth');
 

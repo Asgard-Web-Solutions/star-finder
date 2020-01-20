@@ -47,6 +47,7 @@
                             <td>
                                 <a href="{{ route('create-facility', ['id' => $base->id, 'build' => $facility->id]) }}" class="button">Build</a>
                             </td>
+                        </tr>
                     @endforeach
                 </table>
             </div>

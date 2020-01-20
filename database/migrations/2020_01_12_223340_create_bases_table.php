@@ -19,6 +19,8 @@ class CreateBasesTable extends Migration
             $table->bigInteger('planet_id');
             $table->integer('level');
             $table->decimal('bonus', 10, 5);
+            $table->integer('ore')->default(0);
+            $table->integer('gas')->default(0);
             $table->text('status')->nullable();
             $table->timestamps();
         });

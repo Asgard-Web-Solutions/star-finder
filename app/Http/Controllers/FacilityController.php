@@ -46,7 +46,7 @@ class FacilityController extends Controller
 
         $facilities = FacilityType::where('required_level', '<=', $base->level)->get();
         foreach ($facilities as $facility) {
-            $facility->cost = $this->facilityUpgradeCost( 1 );
+            $facility->cost = $this->facilityUpgradeCost( $facility->required_level );
         }
 
         return view('game.facility.new', [
@@ -88,10 +88,20 @@ class FacilityController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        $cost = $this->facilityUpgradeCost(1);
+        $cost = $this->facilityUpgradeCost( $facilityType->required_level );
 
         if ($character->money < $cost['money']) {
             Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($base->ore < $cost['ore']) {
+            Alert::warning('Not Enough ' . __('common.ore'), 'You do not have the funds required to purchase this.');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($character->gas < $cost['gas']) {
+            Alert::warning('Not Enough ' . __('common.gas'), 'You do not have the funds required to purchase this.');
             return redirect()->route('visit-planet');
         }
 
@@ -118,6 +128,10 @@ class FacilityController extends Controller
 
         $character->money = $character->money - $cost['money'];
         $character->save();
+
+        $base->ore = $base->ore - $cost['ore'];
+        $base->gas = $base->gas - $cost['gas'];
+        $base->save();
 
         Alert::success("Facility Construction Started");
         return redirect()->route('visit-planet');    

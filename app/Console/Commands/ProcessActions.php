@@ -15,7 +15,7 @@ class ProcessActions extends Command
      *
      * @var string
      */
-    protected $signature = 'actions:process';
+    protected $signature = 'process:actions';
 
     /**
      * The console command description.
@@ -48,7 +48,7 @@ class ProcessActions extends Command
         {
             if ($action->controller == "base") {
 
-                if ($action->type == "construction") {
+                if ($action->type == "construction" || $action->type == "upgrade") {
 
                     $base = Base::find($action->target_id);
                     
@@ -56,8 +56,7 @@ class ProcessActions extends Command
                     $base->save();
 
                     $action->delete();
-                }
-                
+                }                
             }
 
             if ($action->controller == "facility") {
