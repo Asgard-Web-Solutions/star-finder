@@ -53,6 +53,7 @@ class ProcessActions extends Command
                     $base = Base::find($action->target_id);
                     
                     $base->status = 'completed';
+                    $base->level = $base->level + 1;
                     $base->save();
 
                     $action->delete();
@@ -65,6 +66,7 @@ class ProcessActions extends Command
                     $facility = Facility::find($action->target_id);
 
                     $facility->status = 'completed';
+                    $facility->level = $facility->level + 1;
                     $facility->mined_at = $action->getOriginal('finishes_at');
                     $facility->save();
 

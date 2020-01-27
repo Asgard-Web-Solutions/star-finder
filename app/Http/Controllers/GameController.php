@@ -27,7 +27,7 @@ class GameController extends Controller
             $planet->ore = $planet->ore + $base->ore;
             $planet->gas = $planet->gas + $base->gas;
 
-            $base->max_level = $this->maxBaseLevel($base);
+            $base->max_level = maxBaseLevel($base);
         }
 
         return view('game.planet', [

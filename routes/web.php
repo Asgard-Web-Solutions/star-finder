@@ -32,6 +32,8 @@ Route::get('/construct/base/{id}/upgrade', 'BaseController@upgrade')->name('upgr
 Route::post('/construct/base/{id}/upgrade', 'BaseController@upgradeBase')->name('upgrade-base')->middleware('auth');
 Route::get('/construct/facility/{id}', 'FacilityController@create')->name('new-facility')->middleware('auth');
 Route::get('/construct/facility/{id}/{build}', 'FacilityController@store')->name('create-facility')->middleware('auth');
+Route::get('/facility/{id}', 'FacilityController@show')->name('show-facility')->middleware('auth');
+Route::post('/facility/{id}/upgrade', 'FacilityController@upgrade')->name('upgrade-facility')->middleware('auth');
 
 Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');

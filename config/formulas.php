@@ -34,11 +34,11 @@ return [
     'facility_gas_addition' => 0,
 
     // Mining per hour = multiplier * LVL + addition
-    'mining_ore_multiplier' => 125,
-    'minint_ore_addition' => 25,
+    'mining_ore_multiplier' => env('MINING_ORE_MULTIPLIER', 125),
+    'mining_ore_addition' => 25,
 
-    'mining_gas_multiplier' => 60,
-    'minint_gas_addition' => 40,
+    'mining_gas_multiplier' => env('MINING_ORE_MULTIPLIER', 60),
+    'mining_gas_addition' => 40,
 
     // Level ^ (exponent_storage + bonus) * base_storage
     'base_storage_ore' => 100,

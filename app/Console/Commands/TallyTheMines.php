@@ -73,10 +73,10 @@ class TallyTheMines extends Command
                     $planetaryBonus = 1;
 
                     // Figure out the mining speed PER HOUR
-                    $miningSpeed = (config('formulas.mining_ore_multiplier') * $facility->level) + config('formulas.minint_ore_addition') * $planetaryBonus;
+                    $miningSpeed = calculateMiningSpeed($facility->level, $facility->bonus, $facility->facility_type->material, $planetaryBonus);
 
                     // Make sure the storage isn't full
-                    $maxStorage = ($base->level ** (config('formulas.exponent_storage_ore') + $base->bonus)) + config('formulas.base_storage_ore');
+                    $maxStorage = calculateMaxStorage($base->level, $base->bonus, $mining);
                     $currentStorage = $base->ore;
                 }
 
@@ -85,15 +85,15 @@ class TallyTheMines extends Command
                     $planetaryBonus = .5;
 
                     // Figure out the mining speed PER HOUR
-                    $miningSpeed = (config('formulas.mining_gas_multiplier') * $facility->level) + config('formulas.minint_gas_addition') * $planetaryBonus;
+                    $miningSpeed = calculateMiningSpeed($facility->level, $facility->bonus, $facility->facility_type->material, $planetaryBonus);
 
                     // Make sure the storage isn't full
-                    $maxStorage = ($base->level ** (config('formulas.exponent_storage_gas') + $base->bonus)) + config('formulas.base_storage_gas');
+                    $maxStorage = calculateMaxStorage($base->level, $base->bonus, $mining);
                     $currentStorage = $base->gas;
                 }
 
 
-                // Convert the PER HOUR to PER SECOND
+                // Convert the PER HOUR MINING SPEED to PER SECOND
                 $resourcesPerSecond = $miningSpeed / 60 / 60;
 
                 // How long has it been since this mine was last mined?
@@ -102,8 +102,9 @@ class TallyTheMines extends Command
                 $mineralsMined = $resourcesPerSecond * $secondsMined;
 
                 $currentStorage = round($currentStorage + $mineralsMined);
-                if ($currentStorage > $maxStorage) {
+                if ($currentStorage >= $maxStorage) {
                     $currentStorage = $maxStorage;
+                    $facility->full = 1;
                 }
 
                 // Save changes

@@ -18,6 +18,7 @@ class CreateFacilityTypesTable extends Migration
             $table->text('name');
             $table->integer('required_level');
             $table->string('type', 32);
+            $table->string('material', 32)->nullable();
             $table->timestamps();
         });
     }
