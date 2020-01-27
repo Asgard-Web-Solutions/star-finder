@@ -3,7 +3,7 @@
 @section('body')
 
 
-    <div class="card w-2/12 mr-3 h-32">
+    <div class="card w-2/12 m-2 h-32">
         <div class="card-header">
             <h1>Manage Site</h1>
         </div>
@@ -20,7 +20,7 @@
 
 
     @can('manage-game-elements')
-        <div class="card w-2/12 h-32">
+        <div class="card w-2/12 m-2 h-32">
             <div class="card-header">
                 <h1>Game Elements</h1>
             </div>
@@ -35,17 +35,20 @@
         </div>
     @endcan
 
-    <div class="card w-2/12 h-32 mr-3">
-        <div class="card-header">
-            <h1>players</h1>
-        </div>
+    @can('manage-characters')
+        <div class="card w-2/12 h-32 m-2">
+            <div class="card-header">
+                <h1>Player Elements</h1>
+            </div>
 
-        <div class="card-body text-center">
+            <div class="card-body text-center">
 
-            <ul>
-                @can('manage-characters')<li><a href="{{ route('all-characters') }}">Characters</a></li>@endcan
-            </ul>
+                <ul>
+                    <li><a href="{{ route('all-characters') }}">Characters</a></li>
+                    <li><a href="{{ route('all-actions') }}">Actions</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
+    @endcan
 
 @endsection

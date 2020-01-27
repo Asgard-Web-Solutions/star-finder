@@ -11538,6 +11538,23 @@ a:hover {
   border-radius: 0.5rem;
 }
 
+.purchase-button {
+  background-color: #38a169;
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0.5rem;
+  color: #f7fafc;
+}
+
+.purchase-button:hover {
+  background-color: #48bb78;
+  color: #2a4365;
+  font-weight: 700;
+}
+
 @media (min-width: 640px){
   .sm\:sr-only{
     position: absolute;
