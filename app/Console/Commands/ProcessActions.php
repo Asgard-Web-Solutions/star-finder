@@ -62,7 +62,7 @@ class ProcessActions extends Command
 
             if ($action->controller == "facility") {
 
-                if ($action->type == "construction") {
+                if ($action->type == "construction" || $action->type == "upgrade") {
                     $facility = Facility::find($action->target_id);
 
                     $facility->status = 'completed';

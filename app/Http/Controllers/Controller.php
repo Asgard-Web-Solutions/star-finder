@@ -65,8 +65,10 @@ class Controller extends BaseController
         foreach ($base->facilities as $facility) {
             if ($current[$facility->facility_type->material] < $max[$facility->facility_type->material]) {
                 $facility->full = 0;
+                $facility->save();
             } else {
                 $facility->full = 1;
+                $facility->save();
             }
         }
     }
