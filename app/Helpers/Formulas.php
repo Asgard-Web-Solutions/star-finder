@@ -65,4 +65,38 @@
     {
         return floor($base->planet->size / 2000);
     }
+
+    function materialSellPrice($administrationLevel, $material, $vendor)
+    {
+        $baseCost = config('game.' . $material . '_value_reduction');
+        $sellCost = ((2 + $administrationLevel) ** (1 - $baseCost) - 1)/(1 - $baseCost);
+
+        $reduction = 0;
+
+        if ($material == "ore") {
+            $reduction = $reduction + 1.5;
+        }
+
+        if ($material == "gas") {
+            $reduction = $reduction + .4;
+        }
+
+        if ($vendor == "direct") {
+            $reduction = $reduction + 1.5;
+        }
+
+        if ($vendor == "contract") {
+            $reduction = $reduction -1.5;
+        }
+
+        if ($reduction < 1) {
+            $reduction = 1;
+        }
+
+        $sellCost = $sellCost / $reduction;
+
+        $sellCost = round($sellCost, 1);
+
+        return $sellCost;
+    }
 ?>

@@ -34,6 +34,8 @@ Route::get('/construct/facility/{id}', 'FacilityController@create')->name('new-f
 Route::get('/construct/facility/{id}/{build}', 'FacilityController@store')->name('create-facility')->middleware('auth');
 Route::get('/facility/{id}', 'FacilityController@show')->name('show-facility')->middleware('auth');
 Route::post('/facility/{id}/upgrade', 'FacilityController@upgrade')->name('upgrade-facility')->middleware('auth');
+Route::get('/base/{base}/sell/{material}', 'BaseController@sell')->name('sell-materials')->middleware('auth');
+Route::post('/base/{base}/sell/{material}', 'BaseController@sellConfirm')->name('confirm-sell-materials')->middleware('auth');
 
 Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');

@@ -10,5 +10,8 @@ return [
     'time_new_base' => env('TIME_NEW_BASE', 300),
     'time_new_facility' => env('TIME_NEW_FACILITY', 300),
 
-    'time_per_extraction' => '15m',
+    'time_per_extraction' => '5m',
+
+    'ore_value_reduction' => 0.4,
+    'gas_value_reduction' => 0.2,
 ];

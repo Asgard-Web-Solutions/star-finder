@@ -16,13 +16,17 @@ class PopulateFacilityTypesTable extends Migration
         DB::table('facility_types')->insert([
             ['name' => 'Titanium Mine', 'required_level' => 1, 'type' => 'mine', 'material' => 'ore'],
         ]);
-        
+
         DB::table('facility_types')->insert([
             ['name' => 'Gas Mine', 'required_level' => 2, 'type' => 'mine', 'material' => 'gas'],
-        ]);    
+        ]);
 
         DB::table('facility_types')->insert([
             ['name' => 'Administration', 'required_level' => 3, 'type' => 'admin'],
+        ]);
+
+        DB::table('facility_types')->insert([
+            ['name' => 'Star Port', 'required_level' => 3, 'type' => 'Factory', 'material' => 'ship'],
         ]);
 
     }

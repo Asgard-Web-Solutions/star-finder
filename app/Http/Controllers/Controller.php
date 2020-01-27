@@ -62,9 +62,12 @@ class Controller extends BaseController
         $current['ore'] = $base->ore;
         $current['gas'] = $base->gas;
 
+        $now = Carbon::now();
+
         foreach ($base->facilities as $facility) {
             if ($current[$facility->facility_type->material] < $max[$facility->facility_type->material]) {
                 $facility->full = 0;
+                $facility->mined_at = $now;
                 $facility->save();
             } else {
                 $facility->full = 1;

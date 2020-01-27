@@ -28,6 +28,10 @@ class GameController extends Controller
             $planet->gas = $planet->gas + $base->gas;
 
             $base->max_level = maxBaseLevel($base);
+
+            $base->maxStorage = array(
+                'ore' =>calculateMaxStorage($base->level, $base->bonus, 'ore'),
+                'gas' =>calculateMaxStorage($base->level, $base->bonus, 'gas'));
         }
 
         return view('game.planet', [

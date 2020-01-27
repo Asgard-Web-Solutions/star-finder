@@ -11,17 +11,17 @@
 
         <div class="w-full">
             <br />
-            <div class="card w-3/12">
+            <div class="card sm:w-full md:w-5/12 lg:w-4/12">
                 <div class="card-header">
                     <h1>Operations Summary</h1>
                 </div>
                 <div class="card-body">
                     Number of Bases: {{ $bases->count() }}<br />
                     <br />
-                    Total {{ __('common.ore') }} on {{ $planet->name }}: {{ $planet->ore }}<br />
-                    Total {{ __('common.gas') }} on {{ $planet->name }}: {{ $planet->gas }}<br />
+                    Total {{ __('common.ore') }}: {{ $planet->ore }}<br />
+                    Total {{ __('common.gas') }}: {{ $planet->gas }}<br />
                     <br />
-                    Current Global Mining Speed: {{ config('game.time_per_extraction') }}<br />
+                    Mining Speed: {{ config('game.time_per_extraction') }}<br />
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="w-full flex">
             @foreach ($bases as $base)
                 <br />
-                <div class="card w-4/12 mr-2">
+                <div class="card w-full lg:w-8/12 md:mr-1 lg:mr-2">
                     <div class="card-header">
                         <h1>Universal Base #{{ $base->id }}</h1>
                     </div>
@@ -51,8 +51,19 @@
                                     <td class="text-orange-400">{{ __('common.gas') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ $base->ore }}</td>
-                                    <td>{{ $base->gas }}</td>
+                                    <td>
+                                        {{ $base->ore }} / {{ $base->maxStorage['ore'] }}
+                                        @if ($base->level > 1)
+                                            [<a href="{{ route('sell-materials', ['base' => $base->id, 'material' => 'ore']) }}">Sell</a>]
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $base->gas }} / {{ $base->maxStorage['gas'] }}
+                                        @if ($base->level > 1)
+                                            [<a href="{{ route('sell-materials', ['base' => $base->id, 'material' => 'gas']) }}">Sell</a>]
+                                        @endif
+
+                                    </td>
                                 </tr>
                             </table>
 
@@ -68,7 +79,7 @@
                                         <tr>
                                             <td>{{ $facility->facility_type->name }}</td>
                                             <td>
-                                                @if ($facility->status == "constructing")
+                                                @if ($facility->status == "constructing" || $facility->status == "upgrading")
                                                     <span class="text-yellow-500">Under Construction</span>
                                                 @else
                                                     {{ $facility->level }}
@@ -101,7 +112,7 @@
                                         <a href="{{ route('upgrade-base', $base->id) }}" class="button">Upgrade Base</a>
                                     @endif
                                 </div>
-    
+
                             @endif
 
                         @endif
@@ -110,7 +121,7 @@
             @endforeach
 
             @if ($bases->count() < config('game.max_bases_per_planet') )
-                <div class="card w-3/12">
+                <div class="card w-4/12 md:w-6/12">
                     <div class="card-header">
                         <h1>Base Availability</h1>
                     </div>

@@ -16,7 +16,7 @@ class BaseController extends Controller
         $character = Character::where('user_id', '=', $user_id)->first();
         $bases = Base::where('character_id', '=', $character->id)
             ->where('planet_id', '=', $character->planet_id)->get();
-        
+
         $newCost = baseUpgradeCost(1);
 
         return view('game.base.new', [
@@ -138,7 +138,7 @@ class BaseController extends Controller
         }
 
         $cost = baseUpgradeCost($base->level + 1);
-        
+
         if ($character->money < $cost['money']) {
             Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
             return redirect()->route('visit-planet');
@@ -238,6 +238,83 @@ class BaseController extends Controller
         $this->checkBaseMiningStatus($base);
 
         Alert::success("Base Upgrade Started");
+        return redirect()->route('visit-planet');
+    }
+
+    public function sell($id, $material)
+    {
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        $base = Base::find($id);
+
+        if ($character->id != $base->character_id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($material != "ore" && $material != "gas") {
+            Alert::toast('Invalid material', 'error');
+            return redirect()->route('visit-planet');
+        }
+
+        $adminLevel = 0;
+        foreach ($base->facilities as $facility) {
+            if ($facility->facility_type->name == "Administration") {
+                $adminLevel = $facility->level;
+            }
+        }
+
+        $sell['Price'] = materialSellPrice($adminLevel, $material, 'direct');
+        $sell['Material'] = $material;
+        $sell['Amount'] = $base->$material;
+
+        return view('game.base.sell', [
+            'loadCharacter' => $character,
+            'sell' => $sell,
+            'base' => $base,
+        ]);
+    }
+
+    public function sellConfirm(Request $request, $id, $material)
+    {
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        $base = Base::find($id);
+
+        if ($character->id != $base->character_id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($material != "ore" && $material != "gas") {
+            Alert::toast('Invalid material', 'error');
+            return redirect()->route('visit-planet');
+        }
+
+        $this->validate($request, [
+            'amount' => 'required|integer|max:' . $base->$material,
+        ]);
+
+        $adminLevel = 0;
+        foreach ($base->facilities as $facility) {
+            if ($facility->facility_type->name == "Administration") {
+                $adminLevel = $facility->level;
+            }
+        }
+
+        $sell['Price'] = materialSellPrice($adminLevel, $material, 'direct');
+
+        $character->money = $character->money + floor($sell['Price'] * $request->amount);
+        $base->$material = $base->$material - $request->amount;
+
+        $character->save();
+        $base->save();
+
+        $this->checkBaseMiningStatus($base);
+
+        Alert::success("Sold " . $request->amount . " " . __('common.' . $material) . " for " . __('common.money symbol') . (floor($sell['Price'] * $request->amount)));
         return redirect()->route('visit-planet');
     }
 }

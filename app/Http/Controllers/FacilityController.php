@@ -111,6 +111,7 @@ class FacilityController extends Controller
         $facility->facility_type_id = $facilityType->id;
         $facility->level = 0;
         $facility->bonus = 0;
+        $facility->full = 1;
         $facility->status = 'constructing';
 
         $facility->save();
@@ -136,7 +137,7 @@ class FacilityController extends Controller
         $this->checkBaseMiningStatus($base);
 
         Alert::success("Facility Construction Started");
-        return redirect()->route('visit-planet');    
+        return redirect()->route('visit-planet');
     }
 
     /**
