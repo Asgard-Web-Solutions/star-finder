@@ -85,7 +85,21 @@ class StarTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
+        $star = StarType::find($id);
+
+        if (!$id) {
+            Alert::toast('Star Not Found', 'error');
+            return redirect()->route('all-star-types');
+        }
+
+        return view('star-type.show', [
+            'star' => $star,
+        ]);
     }
 
     /**
@@ -104,7 +118,7 @@ class StarTypeController extends Controller
         $startype = StarType::find($id);
 
         if (!$startype) {
-            Alert::toast('Species Not Found', 'error');
+            Alert::toast('Star Not Found', 'error');
             return redirect()->route('all-star-types');
         }
 
@@ -131,12 +145,20 @@ class StarTypeController extends Controller
             'name' => 'required|string|max:255',
             'diameter' => 'integer|max:32000',
             'color' => 'string|max:20',
+            'probability' => 'integer|max:100',
         ]);
 
         $star = StarType::find($id);
 
+        if (!$star) {
+            Alert::toast('Star Not Found', 'warning');
+            return redirect()->rout('acp-star-types');
+        }
+
         $star->type = $request->name;
         $star->diameter = $request->diameter;
+        $star->color = $request->color;
+        $star->probability = $request->probability;
         $star->save();
 
         Alert::toast('star type Updated', 'success');

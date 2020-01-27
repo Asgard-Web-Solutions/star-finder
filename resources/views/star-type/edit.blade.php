@@ -37,6 +37,15 @@
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
+                <div>
+                    <label for="probability" class="form-label">star probability</label>
+                    <input type="text" class="form-input" name="probability" id="color" value='{{ $star->probability }}'>
+                </div>
+                @error('color')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
                 <input type="submit" class="form-button" value="edit star">
                 <a href="{{ route('all-star-types') }}" class="button-dark">Cancel</a>
