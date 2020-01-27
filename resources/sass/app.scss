@@ -78,3 +78,11 @@ a:hover {
 .role-tag {
     @apply no-underline text-white p-1 text-sm rounded-lg;
 }
+
+.purchase-button {
+    @apply bg-green-600 rounded-lg px-2 py-0 m-2 text-gray-100;
+}
+
+.purchase-button:hover {
+    @apply bg-green-500 text-blue-900 font-bold;
+}

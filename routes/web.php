@@ -25,6 +25,14 @@ Route::post('/NewCharacter', 'characterController@save')->name('save-character')
 Route::get('/acp/characters', 'characterController@index')->name('all-characters')->middleware('auth');
 Route::get('/acp/character/{id}', 'characterController@show')->name('character')->middleware('auth');
 
+Route::get('/planet', 'GameController@planet')->name('visit-planet')->middleware('auth');
+Route::get('/construct/base', 'BaseController@create')->name('create-base')->middleware('auth');
+Route::post('/construct/base', 'BaseController@store')->name('purchase-base')->middleware('auth');
+Route::get('/construct/base/{id}/upgrade', 'BaseController@upgrade')->name('upgrade-base')->middleware('auth');
+Route::post('/construct/base/{id}/upgrade', 'BaseController@upgradeBase')->name('upgrade-base')->middleware('auth');
+Route::get('/construct/facility/{id}', 'FacilityController@create')->name('new-facility')->middleware('auth');
+Route::get('/construct/facility/{id}/{build}', 'FacilityController@store')->name('create-facility')->middleware('auth');
+
 Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
 Route::get('/acp/species/new', 'SpeciesController@create')->name('new-species');
@@ -47,6 +55,8 @@ Route::post('/acp/newRole', 'RoleController@store')->name('save-role');
 
 Route::post('/acp/user/{id}/addRole', 'UserController@addRole')->name('add-user-role');
 Route::get('/acp/user/{user}/delRole/{role}', 'UserController@removeRole')->name('remove-user-role');
+
+Route::get('/acp/actions/', 'ActionController@index')->name('all-actions')->middleware('auth');
 
 Route::get('/acp/map', 'LocationController@index')->name('locations')->middleware('auth');
 Route::get('/acp/systems', 'SystemController@index')->name('all-systems')->middleware('auth');

@@ -10,6 +10,8 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+        <script src="https://kit.fontawesome.com/96570d91e6.js" crossorigin="anonymous"></script>
+
         <title>@yield('title')</title>
     </head>
     <body class="bg-gray-900">
@@ -49,10 +51,10 @@
         @endphp
 
         <div class="flex-row flex w-full">
-            @if (isset($loadcharacter))
+            @if (isset($loadCharacter))
                 @php
                     $mainSize = "w-10/12";
-                    $character = $loadcharacter;
+                    $character = $loadCharacter;
                 @endphp
 
                 <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
@@ -89,7 +91,23 @@
                             </div>
                         </div>
 
-
+                        <div class="mt-5 w-10/12 m-auto">
+                            <div class="card w-full">
+                                <div class="card-header">
+                                <h1>In Progress</h1>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        @foreach ($character->actions as $action)
+                                            <li class="text-sm"> 
+                                                {{ $action->title }}
+                                                <br />{{ $action->finishes_at }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </aside>
             @endif
