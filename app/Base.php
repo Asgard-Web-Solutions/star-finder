@@ -20,4 +20,9 @@ class Base extends Model
     {
         return $this->belongsTo('App\Planet');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany('App\Contract');
+    }
 }

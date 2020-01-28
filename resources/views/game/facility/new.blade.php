@@ -53,7 +53,11 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('create-facility', ['id' => $base->id, 'build' => $facility->id]) }}" class="button">Build</a>
+                                @if ($base->level == 2 && $facility->name == "Titanium Mine")
+                                    <span class="text-gray-500">Limit Reached</span>
+                                @else
+                                    <a href="{{ route('create-facility', ['id' => $base->id, 'build' => $facility->id]) }}" class="button">Build</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

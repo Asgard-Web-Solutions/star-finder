@@ -10,15 +10,52 @@
             </div>
             <div class="card-body">
                 Current Level: {{ $facility->level }}<br />
-                Mining Speed: {{ $facility->miningSpeed }} per Hour<br />
-                Mining Status:
-                    @if ($facility->full)
-                        <span class="text-red-700"><i class="fas fa-power-off"></i></span> <span class="text-xs">Storage Full</span>
-                    @else
-                        <span class="text-green-700"><i class="fas fa-power-off"></i></span>
+
+                @if ($facility->facility_type->type == "mine")
+                    Mining Speed: {{ $facility->miningSpeed }} per Hour<br />
+                    Mining Status:
+                        @if ($facility->full)
+                            <span class="text-red-700"><i class="fas fa-power-off"></i></span> <span class="text-xs">Storage Full</span>
+                        @else
+                            <span class="text-green-700"><i class="fas fa-power-off"></i></span>
+                        @endif
+                    <br />
+                @endif
+
+                @if ($facility->facility_type->type == "admin")
+                    Contracts: {{ $facility->base->contracts->count() }} / {{ $facility->level }}<br />
+                    <br />
+
+                    <table class="w-full border-2">
+                        <tr class="border-2">
+                            <td class="border-2 p-2">Type</td>
+                            <td class="border-2 p-2">Resource</td>
+                            <td class="border-2 p-2">Amount</td>
+                            <td class="border-2 p-2">Frequency</td>
+                            <td class="border-2 p-2">Next Action</td>
+                        </tr>
+                        @foreach ($facility->base->contracts as $contract)
+                            <tr class="border-2 bg-blue-800">
+                                <td class="border-2 p-2">{{ $contract->action }}</td>
+                                <td class="border-2 p-2">{{ __('common.' . $contract->resource) }}</td>
+                                <td class="border-2 p-2">{{ $contract->amount }}%</td>
+                                <td class="border-2 p-2">{{ ($contract->frequency/60) }}m</td>
+                                <td class="border-2 p-2">{{ $contract->next_at }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <br />
+
+                    @if ($facility->base->contracts->count() < $facility->level)
+                        <div class="w-full text-right">
+                            <a href="{{ route('create-contract', $facility->id) }}" class="button">Create Contract</a>
+                        </div>
                     @endif
+                    <br />
+                @endif
+
                 <br />
-                <br />
+
 
                 <h2 class="text-orange-400">Upgrade Facility</h2>
                 @if ($facility->level < $facility->base->level && $facility->status == "completed")
@@ -70,7 +107,9 @@
                         </form>
                     @else
                         <br />
-                        >> Not Enough Resources <<
+                        <div class="w-full text-center">
+                            >> Not Enough Resources <<
+                        </div>
                     @endif
                 @else
                     @if ($facility->status != "completed")

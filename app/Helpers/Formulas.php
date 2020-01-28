@@ -74,7 +74,7 @@
         $reduction = 0;
 
         if ($material == "ore") {
-            $reduction = $reduction + 1.5;
+            $reduction = $reduction + 1.3;
         }
 
         if ($material == "gas") {
@@ -86,7 +86,7 @@
         }
 
         if ($vendor == "contract") {
-            $reduction = $reduction -1.5;
+            $reduction = $reduction + 0.1;
         }
 
         if ($reduction < 1) {
@@ -98,5 +98,63 @@
         $sellCost = round($sellCost, 1);
 
         return $sellCost;
+    }
+
+    /**
+     * @return $seconds
+     */
+    function calculateContractTime()
+    {
+        // returns number of seconds
+        //return (( 54/60 ) ** ($level - 1)) * 60 * 60;
+        $time[1] = 60;
+        $time[2] = 54;
+        $time[3] = 48.6;
+        $time[4] = 43.7;
+        $time[5] = 39.4;
+        $time[6] = 35.4;
+        $time[7] = 31.9;
+        $time[8] = 28.7;
+        $time[9] = 25.8;
+        $time[10] = 23.2;
+        $time[11] = 20.9;
+        $time[12] = 18.8;
+        $time[13] = 16.9;
+        $time[14] = 15.3;
+        $time[15] = 13.7;
+        $time[16] = 12.4;
+        $time[17] = 11.1;
+        $time[18] = 10;
+
+        return $time;
+    }
+
+    /**
+     * @return $percent
+     */
+    function calculateContractMaxSell()
+    {
+        //return 10 * (($level) ** 0.66);
+        
+        $percent[1] = 10;
+        $percent[2] = 16;
+        $percent[3] = 21;
+        $percent[4] = 25;
+        $percent[5] = 29;
+        $percent[6] = 33;
+        $percent[7] = 36;
+        $percent[8] = 39;
+        $percent[9] = 43;
+        $percent[10] = 46;
+        $percent[11] = 49;
+        $percent[12] = 52;
+        $percent[13] = 54;
+        $percent[14] = 57;
+        $percent[15] = 60;
+        $percent[16] = 62;
+        $percent[17] = 65;
+        $percent[18] = 67;
+
+        return $percent;
     }
 ?>

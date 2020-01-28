@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Gate;
 use Alert;
 use App\Base;
 use App\Character;
@@ -10,6 +11,20 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
+    public function index()
+    {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
+        $bases = Base::all();
+
+        return view('game.base.index', [
+            'bases' => $bases,
+        ]);
+    }
+
     public function create()
     {
         $user_id = Auth::id();
@@ -178,7 +193,7 @@ class BaseController extends Controller
             'type' => 'upgrade',
             'controller' => 'base',
             'target' => $base->id,
-            'seconds' => (config('game.time_new_base') * $base->level),
+            'seconds' => (config('game.time_new_base') * ($base->level + 1)),
         );
 
         $this->makeAction($actionDetails);

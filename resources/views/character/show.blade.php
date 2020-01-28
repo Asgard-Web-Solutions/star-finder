@@ -9,6 +9,16 @@
             </div>
             <div class="card-body">
                 <strong>Name:</strong> {{ $character->name }}<br>
+                <strong>Species:</strong> {{ $character->species->name }}<br />
+                <strong>Location:</strong>
+                    @if ($character->planet_id)
+                        {{ $character->planet->name }}
+                    @endif
+                <br />
+
+                <strong>{{ __('common.money') }}:</strong> {{ __('common.money symbol') }}{{ $character->money }}<br /><br />
+                <strong>Player:</strong> <a href="{{ route('user', $character->user->id) }}">{{ $character->user->name }}</a><br>
+
                 <strong>Description:</strong> {{ $character->description}}
             </div>
         </div>

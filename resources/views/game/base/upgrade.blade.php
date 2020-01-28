@@ -79,7 +79,9 @@
                         <input type="submit" class="purchase-button" value="Start Construction">
                     </form>
                 @else
-                    >> Not Enough Resources <<
+                    <div class="w-full text-center">
+                        >> Not Enough Resources <<
+                    </div>
                 @endif
             </div>
         </div>

@@ -65,13 +65,15 @@ class Controller extends BaseController
         $now = Carbon::now();
 
         foreach ($base->facilities as $facility) {
-            if ($current[$facility->facility_type->material] < $max[$facility->facility_type->material]) {
-                $facility->full = 0;
-                $facility->mined_at = $now;
-                $facility->save();
-            } else {
-                $facility->full = 1;
-                $facility->save();
+            if ($facility->facility_type->type == "mine") {
+                if ($current[$facility->facility_type->material] < $max[$facility->facility_type->material]) {
+                    $facility->full = 0;
+                    $facility->mined_at = $now;
+                    $facility->save();
+                } else {
+                    $facility->full = 1;
+                    $facility->save();
+                }
             }
         }
     }

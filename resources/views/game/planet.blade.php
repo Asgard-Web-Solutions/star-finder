@@ -43,6 +43,7 @@
 
                         @if ($base->status != "constructing")
                             <h2>Level: {{ $base->level }}</h2>
+                            <span>Contracts: </span> {{ $base->contracts->count() }}<br />
 
                             <br />
                             <table class="w-full">
