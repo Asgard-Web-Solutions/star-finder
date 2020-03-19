@@ -51,20 +51,23 @@ class ProcessActions extends Command
                 if ($action->type == "construction" || $action->type == "upgrade") {
 
                     $base = Base::find($action->target_id);
-                    
+
                     $base->status = 'completed';
+                    $base->level = $base->level + 1;
                     $base->save();
 
                     $action->delete();
-                }                
+                }
             }
 
             if ($action->controller == "facility") {
 
-                if ($action->type == "construction") {
+                if ($action->type == "construction" || $action->type == "upgrade") {
                     $facility = Facility::find($action->target_id);
 
                     $facility->status = 'completed';
+                    $facility->level = $facility->level + 1;
+                    $facility->full = 0;
                     $facility->mined_at = $action->getOriginal('finishes_at');
                     $facility->save();
 

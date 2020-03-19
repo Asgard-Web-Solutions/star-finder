@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Gate;
 use Alert;
 use App\Base;
 use App\Character;
@@ -10,14 +11,28 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
+    public function index()
+    {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
+        $bases = Base::all();
+
+        return view('game.base.index', [
+            'bases' => $bases,
+        ]);
+    }
+
     public function create()
     {
         $user_id = Auth::id();
         $character = Character::where('user_id', '=', $user_id)->first();
         $bases = Base::where('character_id', '=', $character->id)
             ->where('planet_id', '=', $character->planet_id)->get();
-        
-        $newCost = $this->baseUpgradeCost(1);
+
+        $newCost = baseUpgradeCost(1);
 
         return view('game.base.new', [
             'loadCharacter' => $character,
@@ -49,7 +64,7 @@ class BaseController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        $baseCost = $this->baseUpgradeCost(1);
+        $baseCost = baseUpgradeCost(1);
 
         if ($character->money < $baseCost['money']) {
             Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
@@ -60,7 +75,7 @@ class BaseController extends Controller
 
         $base->character_id = $character->id;
         $base->planet_id = $character->planet_id;
-        $base->level = 1;
+        $base->level = 0;
         $base->bonus = 0;
         $base->status = "constructing";
 
@@ -96,12 +111,12 @@ class BaseController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($base->level >= $this->maxBaseLevel($base)) {
+        if ($base->level >= maxBaseLevel($base)) {
             Alert::toast('This planet cannot support larger bases.', 'warning');
             return redirect()->route('visit-planet');
         }
 
-        $cost = $this->baseUpgradeCost($base->level + 1);
+        $cost = baseUpgradeCost($base->level + 1);
 
         $bases = Base::where('planet_id', '=', $base->planet_id)->where('character_id', '=', $character->id)->get();
         $planetaryFunds['ore'] = 0;
@@ -132,13 +147,13 @@ class BaseController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($base->level >= $this->maxBaseLevel($base)) {
+        if ($base->level >= maxBaseLevel($base)) {
             Alert::toast('This planet cannot support larger bases.', 'warning');
             return redirect()->route('visit-planet');
         }
 
-        $cost = $this->baseUpgradeCost($base->level + 1);
-        
+        $cost = baseUpgradeCost($base->level + 1);
+
         if ($character->money < $cost['money']) {
             Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
             return redirect()->route('visit-planet');
@@ -167,7 +182,7 @@ class BaseController extends Controller
             'confirm' => 'required',
         ]);
 
-        $base->level = $base->level + 1;
+        //$base->level = $base->level + 1;
         $base->status = "upgrading";
 
         $base->save();
@@ -178,7 +193,7 @@ class BaseController extends Controller
             'type' => 'upgrade',
             'controller' => 'base',
             'target' => $base->id,
-            'seconds' => (config('game.time_new_base') * $base->level),
+            'seconds' => (config('game.time_new_base') * ($base->level + 1)),
         );
 
         $this->makeAction($actionDetails);
@@ -188,6 +203,7 @@ class BaseController extends Controller
 
         if ($base->ore > $cost['ore']) {
             $base->ore = $base->ore - $cost['ore'];
+            $base->save();
         } else {
             $cost['ore'] = $cost['ore'] - $base->ore;
             $base->ore = 0;
@@ -197,16 +213,22 @@ class BaseController extends Controller
                 if ($fundingBase->ore >= $cost['ore']) {
                     $fundingBase->ore = $fundingBase->ore - $cost['ore'];
                     $fundingBase->save();
+
+                    $this->checkBaseMiningStatus($fundingBase);
                 } else {
                     $cost['ore'] = $cost['ore'] - $fundingBase->ore;
                     $fundingBase->ore = 0;
                     $fundingBase->save();
+
+                    $this->checkBaseMiningStatus($fundingBase);
                 }
             }
         }
 
         if ($base->gas > $cost['gas']) {
             $base->gas = $base->gas - $cost['gas'];
+            $base->save();
+
         } else {
             $cost['gas'] = $cost['gas'] - $base->gas;
             $base->gas = 0;
@@ -216,15 +238,98 @@ class BaseController extends Controller
                 if ($fundingBase->gas >= $cost['gas']) {
                     $fundingBase->gas = $fundingBase->gas - $cost['gas'];
                     $fundingBase->save();
+
+                    $this->checkBaseMiningStatus($fundingBase);
                 } else {
                     $cost['gas'] = $cost['gas'] - $fundingBase->gas;
                     $fundingBase->gas = 0;
                     $fundingBase->save();
+
+                    $this->checkBaseMiningStatus($fundingBase);
                 }
             }
         }
 
+        $this->checkBaseMiningStatus($base);
+
         Alert::success("Base Upgrade Started");
+        return redirect()->route('visit-planet');
+    }
+
+    public function sell($id, $material)
+    {
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        $base = Base::find($id);
+
+        if ($character->id != $base->character_id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($material != "ore" && $material != "gas") {
+            Alert::toast('Invalid material', 'error');
+            return redirect()->route('visit-planet');
+        }
+
+        $adminLevel = 0;
+        foreach ($base->facilities as $facility) {
+            if ($facility->facility_type->name == "Administration") {
+                $adminLevel = $facility->level;
+            }
+        }
+
+        $sell['Price'] = materialSellPrice($adminLevel, $material, 'direct');
+        $sell['Material'] = $material;
+        $sell['Amount'] = $base->$material;
+
+        return view('game.base.sell', [
+            'loadCharacter' => $character,
+            'sell' => $sell,
+            'base' => $base,
+        ]);
+    }
+
+    public function sellConfirm(Request $request, $id, $material)
+    {
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        $base = Base::find($id);
+
+        if ($character->id != $base->character_id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($material != "ore" && $material != "gas") {
+            Alert::toast('Invalid material', 'error');
+            return redirect()->route('visit-planet');
+        }
+
+        $this->validate($request, [
+            'amount' => 'required|integer|max:' . $base->$material,
+        ]);
+
+        $adminLevel = 0;
+        foreach ($base->facilities as $facility) {
+            if ($facility->facility_type->name == "Administration") {
+                $adminLevel = $facility->level;
+            }
+        }
+
+        $sell['Price'] = materialSellPrice($adminLevel, $material, 'direct');
+
+        $character->money = $character->money + floor($sell['Price'] * $request->amount);
+        $base->$material = $base->$material - $request->amount;
+
+        $character->save();
+        $base->save();
+
+        $this->checkBaseMiningStatus($base);
+
+        Alert::success("Sold " . $request->amount . " " . __('common.' . $material) . " for " . __('common.money symbol') . (floor($sell['Price'] * $request->amount)));
         return redirect()->route('visit-planet');
     }
 }

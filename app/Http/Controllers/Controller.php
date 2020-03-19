@@ -54,59 +54,27 @@ class Controller extends BaseController
         return $action;
     }
 
-    public function baseUpgradeCost($level)
+    public function checkBaseMiningStatus($base)
     {
-        $money['multiplier'] = config('formulas.bases_money_multiplier');
-        $money['level_mod'] = config('formulas.bases_money_lvl_mod');
-        $money['exp'] = config('formulas.bases_money_exponent');
-        $money['add'] = config('formulas.bases_money_addition');
+        $max['ore'] = calculateMaxStorage($base->level, $base->bonus, 'ore');
+        $max['gas'] = calculateMaxStorage($base->level, $base->bonus, 'gas');
 
-        $ore['multiplier'] = config('formulas.bases_ore_multiplier');
-        $ore['level_mod'] = config('formulas.bases_ore_lvl_mod');
-        $ore['exp'] = config('formulas.bases_ore_exponent');
-        $ore['add'] = config('formulas.bases_ore_addition');
+        $current['ore'] = $base->ore;
+        $current['gas'] = $base->gas;
 
-        $gas['multiplier'] = config('formulas.bases_gas_multiplier');
-        $gas['level_mod'] = config('formulas.bases_gas_lvl_mod');
-        $gas['exp'] = config('formulas.bases_gas_exponent');
-        $gas['add'] = config('formulas.bases_gas_addition');
+        $now = Carbon::now();
 
-        $cost['money'] = floor( pow(($level + $money['level_mod']), $money['exp']) * $money['multiplier'] + $money['add'] );
-        $cost['ore'] = floor( pow(($level + $ore['level_mod']), $ore['exp']) * $ore['multiplier'] + $ore['add'] );
-        $cost['gas'] = floor( pow(($level + $gas['level_mod']), $gas['exp']) * $gas['multiplier'] + $gas['add'] );
-
-        if (is_nan($cost['gas'])) { $cost['gas'] = 0; }
-
-        return $cost;
-    }
-
-    public function facilityUpgradeCost($level)
-    {
-        $money['multiplier'] = config('formulas.facility_money_multiplier');
-        $money['level_mod'] = config('formulas.facility_money_lvl_mod');
-        $money['exp'] = config('formulas.facility_money_exponent');
-        $money['add'] = config('formulas.facility_money_addition');
-
-        $ore['multiplier'] = config('formulas.facility_ore_multiplier');
-        $ore['level_mod'] = config('formulas.facility_ore_lvl_mod');
-        $ore['exp'] = config('formulas.facility_ore_exponent');
-        $ore['add'] = config('formulas.facility_ore_addition');
-
-        $gas['multiplier'] = config('formulas.facility_gas_multiplier');
-        $gas['level_mod'] = config('formulas.facility_gas_lvl_mod');
-        $gas['exp'] = config('formulas.facility_gas_exponent');
-        $gas['add'] = config('formulas.facility_gas_addition');
-
-        $cost['money'] = floor( pow(($level + $money['level_mod']), $money['exp']) * $money['multiplier'] + $money['add'] );
-        $cost['ore'] = floor( pow(($level + $ore['level_mod']), $ore['exp']) * $ore['multiplier'] + $ore['add'] );
-        $cost['gas'] = floor( pow(($level + $gas['level_mod']), $gas['exp']) * $gas['multiplier'] + $gas['add'] );
-
-        if (is_nan($cost['gas'])) { $cost['gas'] = 0; }
-        return $cost;
-    }
-
-    public function maxBaseLevel($base)
-    {
-        return floor($base->planet->size / 2000);
+        foreach ($base->facilities as $facility) {
+            if ($facility->facility_type->type == "mine") {
+                if ($current[$facility->facility_type->material] < $max[$facility->facility_type->material]) {
+                    $facility->full = 0;
+                    $facility->mined_at = $now;
+                    $facility->save();
+                } else {
+                    $facility->full = 1;
+                    $facility->save();
+                }
+            }
+        }
     }
 }

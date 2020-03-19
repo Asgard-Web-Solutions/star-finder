@@ -46,7 +46,7 @@ class FacilityController extends Controller
 
         $facilities = FacilityType::where('required_level', '<=', $base->level)->get();
         foreach ($facilities as $facility) {
-            $facility->cost = $this->facilityUpgradeCost( $facility->required_level );
+            $facility->cost = facilityUpgradeCost( $facility->required_level );
         }
 
         return view('game.facility.new', [
@@ -88,7 +88,7 @@ class FacilityController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        $cost = $this->facilityUpgradeCost( $facilityType->required_level );
+        $cost = facilityUpgradeCost( $facilityType->required_level );
 
         if ($character->money < $cost['money']) {
             Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
@@ -100,7 +100,7 @@ class FacilityController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($character->gas < $cost['gas']) {
+        if ($base->gas < $cost['gas']) {
             Alert::warning('Not Enough ' . __('common.gas'), 'You do not have the funds required to purchase this.');
             return redirect()->route('visit-planet');
         }
@@ -109,8 +109,9 @@ class FacilityController extends Controller
 
         $facility->base_id = $base->id;
         $facility->facility_type_id = $facilityType->id;
-        $facility->level = 1;
+        $facility->level = 0;
         $facility->bonus = 0;
+        $facility->full = 1;
         $facility->status = 'constructing';
 
         $facility->save();
@@ -133,8 +134,10 @@ class FacilityController extends Controller
         $base->gas = $base->gas - $cost['gas'];
         $base->save();
 
+        $this->checkBaseMiningStatus($base);
+
         Alert::success("Facility Construction Started");
-        return redirect()->route('visit-planet');    
+        return redirect()->route('visit-planet');
     }
 
     /**
@@ -145,7 +148,88 @@ class FacilityController extends Controller
      */
     public function show($id)
     {
-        //
+        $facility = Facility::find($id);
+
+        if (!$facility) {
+            Alert::toast('Facility Not Found', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        if ($facility->base->character->id != $character->id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        $facility->miningSpeed = calculateMiningSpeed($facility->level, $facility->bonus, $facility->facility_type->material, 1);
+        $facility->upgradeCost = facilityUpgradeCost($facility->level + $facility->facility_type->required_level);
+
+        return view('game.facility.show', [
+            'facility' => $facility,
+            'loadCharacter' => $character,
+        ]);
+    }
+
+    public function upgrade(Request $request, $id)
+    {
+        $facility = Facility::find($id);
+
+        if (!$facility) {
+            Alert::toast('Facility Not Found', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        if ($facility->base->character->id != $character->id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        $cost = facilityUpgradeCost($facility->level + $facility->facility_type->required_level);
+
+        if ($character->money < $cost['money']) {
+            Alert::warning('Not Enough ' . __('common.money'), 'You do not have the funds required to purchase this.');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($facility->base->ore < $cost['ore']) {
+            Alert::warning('Not Enough ' . __('common.ore'), 'You do not have the funds required to purchase this.');
+            return redirect()->route('visit-planet');
+        }
+
+        if ($facility->base->gas < $cost['gas']) {
+            Alert::warning('Not Enough ' . __('common.gas'), 'You do not have the funds required to purchase this.');
+            return redirect()->route('visit-planet');
+        }
+
+        $facility->status = "upgrading";
+
+        $character->money = $character->money - $cost['money'];
+        $facility->base->ore = $facility->base->ore - $cost['ore'];
+        $facility->base->gas = $facility->base->gas - $cost['gas'];
+
+        $facility->save();
+        $character->save();
+
+        $this->checkBaseMiningStatus($facility->base);
+
+        $actionDetails = array(
+            'character' => $character->id,
+            'title' => "Upgrading Facility - " . $facility->facility_type->name,
+            'type' => 'upgrade',
+            'controller' => 'facility',
+            'target' => $facility->id,
+            'seconds' => (config('game.time_new_facility') * $facility->level),
+        );
+
+        $this->makeAction($actionDetails);
+
+        Alert::toast("Upgrade Started");
+        return redirect()->route('visit-planet');
     }
 
     /**
