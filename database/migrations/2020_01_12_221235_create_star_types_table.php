@@ -16,7 +16,7 @@ class CreateStarTypesTable extends Migration
         Schema::create('star_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type', 32);
-            $table->mediumInteger('diameter');
+            $table->bigInteger('diameter');
             $table->string('color', 20);
             $table->tinyInteger('probability');
             $table->timestamps();
