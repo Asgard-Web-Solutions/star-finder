@@ -47,6 +47,7 @@
                 <ul>
                     <li><a href="{{ route('all-characters') }}">Characters</a></li>
                     <li><a href="{{ route('all-actions') }}">Actions</a></li>
+                    <li><a href="{{ route('all-bases') }}">Bases</a></li>
                 </ul>
             </div>
         </div>

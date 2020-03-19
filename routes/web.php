@@ -33,6 +33,15 @@ Route::post('/construct/base/{id}/upgrade', 'BaseController@upgradeBase')->name(
 Route::get('/construct/facility/{id}', 'FacilityController@create')->name('new-facility')->middleware('auth');
 Route::get('/construct/facility/{id}/{build}', 'FacilityController@store')->name('create-facility')->middleware('auth');
 
+Route::get('/facility/{id}', 'FacilityController@show')->name('show-facility')->middleware('auth');
+Route::post('/facility/{id}/upgrade', 'FacilityController@upgrade')->name('upgrade-facility')->middleware('auth');
+Route::get('/facility/{id}/contract', 'ContractController@create')->name('create-contract')->middleware('auth');
+Route::post('/facility/{id}/contract', 'ContractController@reviewContract')->name('submit-contract')->middleware('auth');
+Route::post('/facility/{id}/contract/confirm', 'ContractController@createContract')->name('confirm-contract')->middleware('auth');
+
+Route::get('/base/{base}/sell/{material}', 'BaseController@sell')->name('sell-materials')->middleware('auth');
+Route::post('/base/{base}/sell/{material}', 'BaseController@sellConfirm')->name('confirm-sell-materials')->middleware('auth');
+
 Route::get('/acp', 'HomeController@acp')->name('acp')->middleware('auth');
 Route::get('/acp/species', 'SpeciesController@index')->name('all-species');
 Route::get('/acp/species/new', 'SpeciesController@create')->name('new-species');
@@ -56,7 +65,8 @@ Route::post('/acp/newRole', 'RoleController@store')->name('save-role');
 Route::post('/acp/user/{id}/addRole', 'UserController@addRole')->name('add-user-role');
 Route::get('/acp/user/{user}/delRole/{role}', 'UserController@removeRole')->name('remove-user-role');
 
-Route::get('/acp/actions/', 'ActionController@index')->name('all-actions')->middleware('auth');
+Route::get('/acp/actions', 'ActionController@index')->name('all-actions')->middleware('auth');
+Route::get('/acp/bases', 'BaseController@index')->name('all-bases')->middleware('auth');
 
 Route::get('/acp/map', 'LocationController@index')->name('locations')->middleware('auth');
 Route::get('/acp/systems', 'SystemController@index')->name('all-systems')->middleware('auth');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use App\Action;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,11 @@ class ActionController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('manage-game-elements')) {
+            Alert::toast('Permission Denied', 'warning');
+            return redirect('/');
+        }
+
         $actions = Action::all();
 
         return view('action.index', [

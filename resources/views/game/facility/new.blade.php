@@ -24,7 +24,7 @@
                     @foreach ($facilities as $i => $facility)
                         @if ($loop->iteration % 2 == 0)
                             <tr class="bg-gray-600">
-                        @else 
+                        @else
                             <tr class="bg-gray-700">
                         @endif
                             <td class="p-2">{{ $facility->name }}</td>
@@ -39,13 +39,25 @@
 
                             </td>
                             <td>{{ $facility->cost['ore'] }}
-                                <i class="far fa-check-circle text-green-500"></i>
+                                @if ($facility->cost['ore'] > $base->ore)
+                                    <i class="fas fa-times-circle text-red-500"></i>
+                                @else
+                                    <i class="far fa-check-circle text-green-500"></i>
+                                @endif
                             </td>
                             <td>{{ $facility->cost['gas'] }}
-                                <i class="far fa-check-circle text-green-500"></i>
+                                @if ($facility->cost['gas'] > $base->gas)
+                                    <i class="fas fa-times-circle text-red-500"></i>
+                                @else
+                                    <i class="far fa-check-circle text-green-500"></i>
+                                @endif
                             </td>
                             <td>
-                                <a href="{{ route('create-facility', ['id' => $base->id, 'build' => $facility->id]) }}" class="button">Build</a>
+                                @if ($base->level == 2 && $facility->name == "Titanium Mine")
+                                    <span class="text-gray-500">Limit Reached</span>
+                                @else
+                                    <a href="{{ route('create-facility', ['id' => $base->id, 'build' => $facility->id]) }}" class="button">Build</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

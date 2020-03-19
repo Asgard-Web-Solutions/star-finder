@@ -50,20 +50,20 @@
             $mainSize = "w-full";
         @endphp
 
-        <div class="flex-row flex w-full">
+        <div class="md:flex-row md:flex w-full">
             @if (isset($loadCharacter))
                 @php
-                    $mainSize = "w-10/12";
+                    $mainSize = "w-full md:w-10/12";
                     $character = $loadCharacter;
                 @endphp
 
-                <aside class="bg-gray-100 w-2/12 min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
+                <aside class="bg-gray-100 w-full md:w-4/12 lg:w-3/12 xl:w-2/12 md:min-h-full rounded-lg mt-1 md:m-6 text-gray-900 p-3 font-spacey flex justify-center">
                     <div class="w-full">
                         <div class="w-full text-center">
                             <h2 class="text-orange-600 text-2xl underline">Character</h2>
                         </div>
 
-                        <div class="mt-5 w-10/12 m-auto">
+                        <div class="mt-5 w-full xl:w-10/12 m-auto">
                             <div class="card w-full">
                                 <div class="card-header">
                                 <h1>{{ $character->name }}</h1>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-5 w-10/12 m-auto">
+                        <div class="mt-5 w-full xl:w-10/12 m-auto">
                             <div class="card w-full">
                                 <div class="card-header">
                                 <h1>Location</h1>
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-5 w-10/12 m-auto">
+                        <div class="mt-5 w-full xl:w-10/12 m-auto">
                             <div class="card w-full">
                                 <div class="card-header">
                                 <h1>In Progress</h1>
@@ -99,7 +99,7 @@
                                 <div class="card-body">
                                     <ul>
                                         @foreach ($character->actions as $action)
-                                            <li class="text-sm"> 
+                                            <li class="text-sm">
                                                 {{ $action->title }}
                                                 <br />{{ $action->finishes_at }}
                                             </li>
@@ -112,7 +112,7 @@
                 </aside>
             @endif
 
-            <main class="bg-gray-100 {{ $mainSize }} min-h-full rounded-lg m-6 text-gray-900 p-3 font-spacey flex justify-center">
+            <main class="bg-gray-100 {{ $mainSize }} min-h-full rounded-lg mt-1 md:m-6 text-gray-900 p-3 font-spacey flex justify-center">
                 @yield('body')
             </main>
         </div>
