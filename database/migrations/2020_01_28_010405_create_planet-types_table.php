@@ -13,7 +13,7 @@ class CreatePlanetTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('planet-types', function (Blueprint $table) {
+        Schema::create('planet_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
             $table->decimal('ore_multiplier', 5, 3);
@@ -31,6 +31,6 @@ class CreatePlanetTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('planet-types');
+        Schema::dropIfExists('planet_types');
     }
 }

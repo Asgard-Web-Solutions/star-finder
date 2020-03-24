@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class planet-types extends Model
+class PlanetType extends Model
 {
     //
 }
