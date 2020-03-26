@@ -152,7 +152,7 @@ class StarTypeController extends Controller
 
         if (!$star) {
             Alert::toast('Star Not Found', 'warning');
-            return redirect()->rout('acp-star-types');
+            return redirect()->route('acp-star-types');
         }
 
         $star->type = $request->name;

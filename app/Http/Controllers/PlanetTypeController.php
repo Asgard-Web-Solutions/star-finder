@@ -40,7 +40,7 @@ class planetTypeController extends Controller
             return redirect('/');
         }
 
-        return view('planet-type.new');
+        return view('acp.planet-type.new');
     }
 
     /**
@@ -57,18 +57,21 @@ class planetTypeController extends Controller
         }
 
         $this->validate($request, [
-            'type' => 'required|string|max:32',
-            'diameter' => 'required|integer|max:32000',
-            'color' => 'required|string|max:20',
-            'probability' => 'required|integer|max:100',
+            'type' => 'required|string|max:255',
+            'diameter' => 'integer|max:300000',
+            'planet_gas_multiplier' => 'max:100',
+            'planet_ore_multiplier' => 'max:100',
+            'diameter_variance' => 'integer|max:100',
         ]);
+
 
         $planet = new planetType();
 
         $planet->type = $request->type;
-        $planet->diameter = $request->diameter;
-        $planet->color = $request->color;
-        $planet->probability = $request->probability;
+        $planet->average_diameter = $request->diameter;
+        $planet->gas_multiplier	 = $request->planet_gas_multiplier;
+        $planet->ore_multiplier = $request->planet_ore_multiplier;
+        $planet->diameter_varience = $request->diameter_variance;
 
         $planet->save();
 
@@ -138,21 +141,21 @@ class planetTypeController extends Controller
     {
         if (Gate::denies('manage-game-elements')) {
             Alert::toast('Permission Denied', 'warning');
-            return redirect('/');
-        }
+        }            return redirect('/');
 
         $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'diameter' => 'integer|max:32000',
-            'color' => 'string|max:20',
-            'probability' => 'integer|max:100',
+            'type' => 'required|string|max:255',
+            'diameter' => 'integer|max:300000',
+            'planet_gas_multiplier' => 'decimal(5,3)',
+            'planet_ore_multiplier' => 'decimal(5,3)',
+            'diameter_variance' => 'integer|max:100',
         ]);
 
-        $planet = planetType::find($id);
+         $planet = planetType::find($id);
 
         if (!$planet) {
             Alert::toast('planet Not Found', 'warning');
-            return redirect()->rout('acp-planet-types');
+            return redirect()->route('acp-planet-types');
         }
 
         $planet->type = $request->name;
@@ -161,7 +164,7 @@ class planetTypeController extends Controller
         $planet->probability = $request->probability;
         $planet->save();
 
-        Alert::toast('planet type Updated', 'success');
+         Alert::toast('planet type Updated', 'success');
 
         return redirect()->route('all-planet-types');
     }
