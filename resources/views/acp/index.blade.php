@@ -20,7 +20,7 @@
 
 
     @can('manage-game-elements')
-        <div class="card w-2/12 m-2 h-32">
+        <div class="card w-2/12 m-2">
             <div class="card-header">
                 <h1>Game Elements</h1>
             </div>
@@ -30,6 +30,8 @@
                 <ul>
                     <li><a href="{{ route('all-species') }}">Species</a></li>
                     <li><a href="{{ route('locations') }}">Locations</a></li>
+                    <li><a href="{{ route('all-star-types') }}">Star-types</a></li>
+                    <li><a href="{{ route('all-planet-types') }}">planet-types</a></li>
                 </ul>
             </div>
         </div>
