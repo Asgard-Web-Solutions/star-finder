@@ -17,7 +17,9 @@ class CreatePlanetTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type');
             $table->decimal('ore_multiplier', 5, 3);
+            $table->string('ore_type', 20);
             $table->decimal('gas_multiplier' , 5, 3);
+            $table->string('gas_type', 20);
             $table->mediumInteger('average_diameter');
             $table->decimal('diameter_varience', 6, 4 );
             $table->timestamps();
