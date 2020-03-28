@@ -30,6 +30,7 @@
                         <tr class="border-2">
                             <td class="border-2 p-2">Type</td>
                             <td class="border-2 p-2">Resource</td>
+                            <td class="border-2 p-2">Price</td>
                             <td class="border-2 p-2">Amount</td>
                             <td class="border-2 p-2">Frequency</td>
                             <td class="border-2 p-2">Next Action</td>
@@ -38,6 +39,7 @@
                             <tr class="border-2 bg-blue-800">
                                 <td class="border-2 p-2">{{ $contract->action }}</td>
                                 <td class="border-2 p-2">{{ __('common.' . $contract->resource) }}</td>
+                                <td class="border-2 p-2">{{ __('common.money symbol') }}{{ $contract->price }}</td>
                                 <td class="border-2 p-2">{{ $contract->amount }}%</td>
                                 <td class="border-2 p-2">{{ ($contract->frequency/60) }}m</td>
                                 <td class="border-2 p-2">{{ $contract->next_at }}</td>
