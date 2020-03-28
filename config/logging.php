@@ -47,6 +47,12 @@ return [
             'level' => 'debug',
         ],
 
+        'schedulerun' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/schedulerun.log'),
+            'level' => 'info',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
