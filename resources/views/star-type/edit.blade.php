@@ -10,8 +10,8 @@
                 @csrf
 
                 <div>
-                    <label for="name" class="form-label">star type</label>
-                    <input type="text" class="form-input" name="name" id="name" value="{{ $star->type }}">
+                    <label for="name" class="form-label">Star Type Name</label>
+                    <input type="text" class="form-input" name="name" id="name" value="{{ $star->name }}">
                 </div>
                 @error('name')
                 <span class="invalid-feedback" role="alert">

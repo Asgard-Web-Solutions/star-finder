@@ -11460,8 +11460,6 @@ a:hover {
   border-bottom-left-radius: 0.25rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-  margin-top: auto;
-  margin-bottom: auto;
   color: #f7fafc;
 }
 
@@ -11472,8 +11470,6 @@ a:hover {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   width: 100%;
-  margin-top: auto;
-  margin-bottom: auto;
   text-align: center;
 }
 

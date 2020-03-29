@@ -81,6 +81,16 @@ Route::get('/acp/star/{id}', 'StarTypeController@show')->name('acp-star-type')->
 Route::get('/acp/star/{id}/edit', 'StarTypeController@edit')->name('edit-star-type')->middleware('auth');
 Route::post('/acp/star/{id}/edit', 'StarTypeController@update')->name('update-star-type')->middleware('auth');
 
+Route::get('/acp/star/{id}/add-zone', 'ZoneController@add')->name('zone-add')->middleware('auth');
+Route::post('/acp/star/{id}/add-zone', 'ZoneController@store')->name('zone-store')->middleware('auth');
+Route::get('/acp/edit-zone/{id}', 'ZoneController@edit')->name('zone-edit')->middleware('auth');
+Route::post('/acp/edit-zone/{id}', 'ZoneController@update')->name('zone-update')->middleware('auth');
+Route::get('/acp/zone/{id}', 'ZoneController@show')->name('zone-show')->middleware('auth');
+
+Route::get('/acp/zone/{id}/add-planet', 'ZoneController@addPlanet')->name('zone-planet-add')->middleware('auth');
+Route::post('/acp/zone/{id}/add-planet', 'ZoneController@storePlanet')->name('zone-planet-store')->middleware('auth');
+Route::get('/acp/zone/{id}/delete-planet/{planet_id}', 'ZoneController@deletePlanet')->name('zone-planet-delete')->middleware('auth');
+
 Route::get('/acp/planets', 'PlanetTypeController@index')->name('all-planet-types')->middleware('auth');
 Route::get('/acp/planet/new', 'PlanetTypeController@create')->name('create-planet-type')->middleware('auth');
 Route::post('/acp/planet/new', 'PlanetTypeController@store')->name('store-planet-type')->middleware('auth');

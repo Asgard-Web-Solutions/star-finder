@@ -15,7 +15,7 @@
                     </thead>
                     @foreach ($stars as $star)
                         <tr>
-                            <td class="pl-2"><a href="{{ route('acp-star-type', $star->id) }}">{{ $star->type }}</a></td>
+                            <td class="pl-2"><a href="{{ route('acp-star-type', $star->id) }}">{{ $star->name }}</a></td>
                             <td><a href="{{ route('edit-star-type', $star->id) }}">Edit</a></td>
                         </tr>
                     @endforeach

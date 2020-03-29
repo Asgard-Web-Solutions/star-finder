@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStarTypesTable extends Migration
+class CreatePlanetTypeZoneTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateStarTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('star_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 32);
-            $table->bigInteger('diameter');
-            $table->string('color', 20);
+        Schema::create('planet_type_zone', function (Blueprint $table) {
+            $table->bigInteger('zone_id');
+            $table->bigInteger('planet_type_id');
             $table->tinyInteger('probability');
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ class CreateStarTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('star_types');
+        Schema::dropIfExists('planet_type_zone');
     }
 }

@@ -11,4 +11,7 @@ return [
 
     'ore' => 'Titanium',
     'gas' => 'Rocket Fuel',
+    
+    'ore_adv' => 'Mathium',
+    'gas_adv' => 'Hyper Fuel',
 ];
