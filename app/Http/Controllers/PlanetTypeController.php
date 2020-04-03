@@ -60,6 +60,7 @@ class planetTypeController extends Controller
             'type' => 'required|string|max:255',
             'diameter' => 'integer|max:300000',
             'planet_gas_multiplier' => 'max:100',
+            'ore_type' => 'required|string|max:20',
             'planet_ore_multiplier' => 'max:100',
             'diameter_variance' => 'integer|max:100',
         ]);
@@ -99,8 +100,7 @@ class planetTypeController extends Controller
             Alert::toast('planet Not Found', 'error');
             return redirect()->route('all-planet-types');
         }
-
-        return view('planet-type.show', [
+        return view('acp.planet-type.show', [
             'planet' => $planet,
         ]);
     }
@@ -109,8 +109,8 @@ class planetTypeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     * @return \Illuminate\Http\Response*/
+    // */
     public function edit($id)
     {
         if (Gate::denies('manage-game-elements')) {

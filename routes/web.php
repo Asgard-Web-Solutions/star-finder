@@ -84,7 +84,7 @@ Route::post('/acp/star/{id}/edit', 'StarTypeController@update')->name('update-st
 Route::get('/acp/planets', 'PlanetTypeController@index')->name('all-planet-types')->middleware('auth');
 Route::get('/acp/planet/new', 'PlanetTypeController@create')->name('create-planet-type')->middleware('auth');
 Route::post('/acp/planet/new', 'PlanetTypeController@store')->name('store-planet-type')->middleware('auth');
-Route::get('/acp/planet/{id}', 'PlanetTypeController@show')->name('acp-planet-type')->middleware('auth');
+Route::get('/acp/planet/{id}', 'PlanetTypeController@show')->name('show-planet-type')->middleware('auth');
 Route::get('/acp/planet/{id}/edit', 'PlanetTypeController@edit')->name('edit-planet-type')->middleware('auth');
 Route::post('/acp/planet/{id}/edit', 'PlanetTypeController@update')->name('update-planet-type')->middleware('auth');
 

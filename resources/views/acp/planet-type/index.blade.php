@@ -15,7 +15,7 @@
                     </thead>
                  @foreach ($planets as $planet)
                         <tr>
-                            <td class="pl-2"><a href="{{ route('acp-planet-type', $planet->id) }}">{{ $planet->type }}</a></td>
+                            <td class="pl-2"><a href="{{ route('show-planet-type', $planet->id) }}">{{ $planet->type }}</a></td>
                             <td><a href="{{ route('edit-planet-type', $planet->id) }}">Edit</a></td>
                         </tr>
                 @endforeach

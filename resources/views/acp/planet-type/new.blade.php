@@ -40,10 +40,30 @@
                 @enderror
 
                 <div>
+                    <label for="planet_gas_type" class="form-label">planet gas type</label><br>
+                    <input type="text" class="form-input" name="planet_gas_type" id="planet_gas_type">
+                </div>
+                @error('planet_gas_type')
+                    <span class="text-red-700" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div>
                     <label for="planet_ore_multiplier" class="form-label">planet ore multiplier</label><br>
                     <input type="text" class="form-input" name="planet_ore_multiplier" id="planet_ore_multiplier">
                 </div>
                 @error('planet_ore_multiplier')
+                    <span class="text-red-700" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div>
+                    <label for="planet_ore_type" class="form-label">planet ore type</label><br>
+                    <input type="text" class="form-input" name="planet_ore_type" id="planet_ore_type">
+                </div>
+                @error('planet_ore_type')
                     <span class="text-red-700" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
