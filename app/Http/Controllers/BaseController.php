@@ -9,6 +9,7 @@ use App\Base;
 use App\Character;
 use Illuminate\Http\Request;
 
+// Show a list of all bases in the ACP
 class BaseController extends Controller
 {
     public function index()

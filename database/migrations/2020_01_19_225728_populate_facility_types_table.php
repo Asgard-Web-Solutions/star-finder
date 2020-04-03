@@ -22,11 +22,15 @@ class PopulateFacilityTypesTable extends Migration
         ]);
 
         DB::table('facility_types')->insert([
-            ['name' => 'Administration', 'required_level' => 3, 'type' => 'admin'],
+            ['name' => 'Administration', 'required_level' => 3, 'type' => 'admin', 'material' => 'contract'],
         ]);
 
         DB::table('facility_types')->insert([
-            ['name' => 'Star Port', 'required_level' => 3, 'type' => 'Factory', 'material' => 'ship'],
+            ['name' => 'Star Port', 'required_level' => 3, 'type' => 'admin', 'material' => 'research'],
+        ]);
+
+        DB::table('facility_types')->insert([
+            ['name' => 'Factory', 'required_level' => 4, 'type' => 'factory', 'material' => 'material'],
         ]);
 
     }
@@ -41,5 +45,7 @@ class PopulateFacilityTypesTable extends Migration
         DB::table('facility_types')->where('name', '=', 'Titanium Mine')->delete();
         DB::table('facility_types')->where('name', '=', 'Gas Mine')->delete();
         DB::table('facility_types')->where('name', '=', 'Administration')->delete();
+        DB::table('facility_types')->where('name', '=', 'Star Port')->delete();
+        DB::table('facility_types')->where('name', '=', 'Factory')->delete();
     }
 }

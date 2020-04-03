@@ -46,4 +46,7 @@ return [
     
     'base_storage_gas' => 75,
     'exponent_storage_gas' => 2,
+
+    'contract_base_expiration_days' => env('CONTRACT_EXPIRATION_DAYS', 1),
+    'contract_increase_expiration_days' => env('CONTRACT_EXPIRATION_INCREASE', 2),
 ];

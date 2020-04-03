@@ -15,5 +15,5 @@ return [
     'ore_value_reduction' => 0.4,
     'gas_value_reduction' => 0.2,
 
-    'contract_base_rate' => 25,
+    'contract_base_rate' => env('BASE_CONTRACT_RATE', 20),
 ];

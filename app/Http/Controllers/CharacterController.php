@@ -44,7 +44,7 @@ class CharacterController extends Controller
     }
 
 
-    public function create () {
+    public function create() {
 
         $user_id = Auth::id();
         $character = Character::where("user_id", '=', $user_id)->get();
@@ -60,7 +60,7 @@ class CharacterController extends Controller
         ]);
     }
 
-    public function save (Request $request){
+    public function save(Request $request){
 
         $this->validate($request, [
             'name' => 'required|string|max:25',

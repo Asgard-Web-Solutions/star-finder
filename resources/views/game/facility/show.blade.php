@@ -35,6 +35,7 @@
                             <td class="border-2 p-2">Frequency</td>
                             <td class="border-2 p-2">Next Action</td>
                         </tr>
+                        <?php $activeContracts = 0; ?>
                         @foreach ($facility->base->contracts as $contract)
                             <tr class="border-2 bg-blue-800">
                                 <td class="border-2 p-2">{{ $contract->action }}</td>
@@ -42,13 +43,20 @@
                                 <td class="border-2 p-2">{{ __('common.money symbol') }}{{ $contract->price }}</td>
                                 <td class="border-2 p-2">{{ $contract->amount }}%</td>
                                 <td class="border-2 p-2">{{ ($contract->frequency/60) }}m</td>
-                                <td class="border-2 p-2">{{ $contract->next_at }}</td>
+                                <td class="border-2 p-2">
+                                    @if ($contract->status == "active")
+                                        {{ $contract->next_at }}
+                                        <?php $activeContracts ++; ?>
+                                    @else
+                                        {{ ucfirst($contract->status) }}
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </table>
                     <br />
 
-                    @if ($facility->base->contracts->count() < $facility->level)
+                    @if ($activeContracts < $facility->level)
                         <div class="w-full text-right">
                             <a href="{{ route('create-contract', $facility->id) }}" class="button">Create Contract</a>
                         </div>
