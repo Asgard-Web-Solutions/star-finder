@@ -19,6 +19,7 @@ class CreatePlansTable extends Migration
             $table->longText('description');
             $table->string('learn_from');
             $table->integer('level_required');
+            $table->integer('research_points');
             $table->string('type');
             $table->timestamps();
         });

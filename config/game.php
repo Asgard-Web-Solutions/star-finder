@@ -3,7 +3,10 @@
 return [
     'map_size' => 5,
     'starting_money' => 2000,
+    'starting_research' => 0,
     'max_bases_per_planet' => 1,
+    
+    'daily_research_points' => 10,
 
     'cost_new_base' => 250,
 

@@ -75,10 +75,10 @@ class CharacterController extends Controller
         $character->species_id = $request->species;
         $character->faction_id	= 0;
         $character->planet_id = 1; // Earth!
+        $character->research_points = config('game.starting_research');
         $character->money = config('game.starting_money');
 
         $character->save();
-
 
         $plans = Plan::where('learn_from', '=', 'default')->get();
 

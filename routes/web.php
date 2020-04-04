@@ -39,6 +39,8 @@ Route::get('/facility/{id}/contract', 'ContractController@create')->name('create
 Route::post('/facility/{id}/contract', 'ContractController@reviewContract')->name('submit-contract')->middleware('auth');
 Route::post('/facility/{id}/contract/confirm', 'ContractController@createContract')->name('confirm-contract')->middleware('auth');
 
+Route::get('/facility/{id}/research/{plan}', 'FacilityController@research')->name('research-plan')->middleware('auth');
+
 Route::get('/base/{base}/sell/{material}', 'BaseController@sell')->name('sell-materials')->middleware('auth');
 Route::post('/base/{base}/sell/{material}', 'BaseController@sellConfirm')->name('confirm-sell-materials')->middleware('auth');
 

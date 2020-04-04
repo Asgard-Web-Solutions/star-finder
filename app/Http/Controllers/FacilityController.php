@@ -9,6 +9,7 @@ use App\Facility;
 use App\Character;
 use App\FacilityType;
 use App\Plan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -188,10 +189,13 @@ class FacilityController extends Controller
 
         $plans = Plan::where('learn_from', '=', $facility->facility_type->type)->where('level_required', '<=', $facility->level)->get();
 
+        $researching = ($facility->researching) ? Plan::find($facility->researching) : null;
+
         return view('game.facility.show', [
             'facility' => $facility,
             'loadCharacter' => $character,
             'plans' => $plans,
+            'researching' => $researching,
         ]);
     }
 
@@ -253,6 +257,36 @@ class FacilityController extends Controller
 
         Alert::toast("Upgrade Started");
         return redirect()->route('visit-planet');
+    }
+
+    public function research($id, $plan)
+    {
+        $research = Plan::find($plan);
+        $facility = Facility::find($id);
+
+        if (!$facility) {
+            Alert::toast('Facility Not Found', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        $user_id = Auth::id();
+        $character = Character::where('user_id', '=', $user_id)->first();
+
+        if ($facility->base->character->id != $character->id) {
+            Alert::toast('This is not your base', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        $now = Carbon::now();
+
+        $facility->researching = $research->id;
+        $facility->research_progress = 0;
+        $facility->researched_at = $now;
+        $facility->save();
+
+        Alert::toast("Research started");
+
+        return redirect()->route('show-facility', $facility->id);
     }
 
     /**

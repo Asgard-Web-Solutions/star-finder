@@ -67,13 +67,43 @@
                 @endif
 
                 @if ($facility->facility_type->type == "starport")
+                    <div class="flex">
+                        <div class="w-1/2">Currently Researching: 
+                            @if($researching) 
+                                <span class="text-orange-500">{{ $researching->name }}</span></div>
+                                <div class="w-1/2">Progress: {{ $facility->research_progress }} / {{ $researching->research_points }} 
+                            @else 
+                                <span class="text-gray-600 text-sm">No Current Research Projects</span> 
+                            @endif
+                        </div>
+                    </div>
+                    <br />
+
                     <h2 class="text-orange-500 text-lg text-center">Research Starship Plans</h2>
 
-                    @if ($plans)
-                        @foreach ($plans as $plan)
-                            {{ $plan->name }}
-                        @endforeach
-                    @endif
+                    <table class="w-7/12 m-auto">
+                        <tr class="">
+                            <td class="p-2">Ship</td>
+                            <td class="p-2">Research Cost</td>
+                            <td class="p-2">Action</td>
+                        </tr>
+
+                        @if ($plans)
+                            @foreach ($plans as $plan)
+                                <tr class="">
+                                    <td class="p-2">{{ $plan->name }}</td>
+                                    <td class="p-2"><strong class="text-orange-500">{{ $plan->research_points }}</strong> Research Point</td>
+                                    <td class="p-2">
+                                        @if ($plan->id == $facility->researching)
+                                            <span class="text-gray-600 text-sm">Researching...</span>
+                                        @else
+                                            <a href="{{ route('research-plan', ['id' => $facility->id, 'plan' => $plan->id]) }}" class="button">Start Research</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </table>
 
                 @endif
 

@@ -14,16 +14,16 @@ class PopulatePlansTable extends Migration
     public function up()
     {
         DB::table('plans')->insert([
-            ['name' => 'Gas Mine',          'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'description' => 'Allows the creation of Gas Mines'],
-            ['name' => 'Ore Mine',          'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'description' => 'Allows the creation of Ore Mines'],
-            ['name' => 'Factory',           'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'description' => 'Factories allow the creation of all kinds of items.'],
-            ['name' => 'Starport',          'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'description' => 'Starports allow you to store your ships while on planet and lets you research new ship designs.'],
-
-            ['name' => 'Admin Office',      'learn_from' => 'university', 'level_required' => 1, 'type' => 'facility',    'description' => 'Create and manage contracts to automatically sell your resources for Keplers.'],
-            ['name' => 'Advanced Ore Mine', 'learn_from' => 'university', 'level_required' => 2, 'type' => 'facility',    'description' => 'Allows the creation of Advanced Ore Mines'],
-            ['name' => 'Advanced Gas Mine', 'learn_from' => 'university', 'level_required' => 3, 'type' => 'facility',    'description' => 'Allows the creation of Advanced Gas Mines'],
-
-            ['name' => 'Basic Shuttle',     'learn_from' => 'starport',   'level_required' => 1, 'type' => 'ship',        'description' => 'Basic shuttle that is a great place to start to travel to other planets in the solar system.'],
+            ['name' => 'Gas Mine',          'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'research_points' => '0', 'description' => 'Allows the creation of Gas Mines'],
+            ['name' => 'Ore Mine',          'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'research_points' => '0', 'description' => 'Allows the creation of Ore Mines'],
+            ['name' => 'Factory',           'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'research_points' => '0', 'description' => 'Factories allow the creation of all kinds of items.'],
+            ['name' => 'Starport',          'learn_from' => 'default',    'level_required' => 0, 'type' => 'facility',    'research_points' => '0', 'description' => 'Starports allow you to store your ships while on planet and lets you research new ship designs.'],
+            
+            ['name' => 'Admin Office',      'learn_from' => 'university', 'level_required' => 1, 'type' => 'facility',    'research_points' => '0', 'description' => 'Create and manage contracts to automatically sell your resources for Keplers.'],
+            ['name' => 'Advanced Ore Mine', 'learn_from' => 'university', 'level_required' => 2, 'type' => 'facility',    'research_points' => '0', 'description' => 'Allows the creation of Advanced Ore Mines'],
+            ['name' => 'Advanced Gas Mine', 'learn_from' => 'university', 'level_required' => 3, 'type' => 'facility',    'research_points' => '0', 'description' => 'Allows the creation of Advanced Gas Mines'],
+            
+            ['name' => 'Basic Shuttle',     'learn_from' => 'starport',   'level_required' => 1, 'type' => 'ship',        'research_points' => '1', 'description' => 'Basic shuttle that is a great place to start to travel to other planets in the solar system.'],
         ]);
     }
 
