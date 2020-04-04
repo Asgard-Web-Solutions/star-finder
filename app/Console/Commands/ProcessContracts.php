@@ -92,7 +92,7 @@ class ProcessContracts extends Command
             $next = $now;
             $contract->next_at = $next->addSeconds($contract->frequency);
 
-            if ($contract->expires_at < $now) {
+            if ($contract->getOriginal('expires_at') < $now) {
                 $contract->status = "expired";
             }
 

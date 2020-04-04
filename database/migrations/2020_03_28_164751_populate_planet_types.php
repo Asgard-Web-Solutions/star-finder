@@ -35,6 +35,16 @@ class PopulatePlanetTypes extends Migration
      */
     public function down()
     {
-        //
+        DB::table('planet_types')->where('type', '=', 'Earth like')->delete();
+        DB::table('planet_types')->where('type', '=', 'hemi earth')->delete();
+        DB::table('planet_types')->where('type', '=', 'rocky planet')->delete();
+        DB::table('planet_types')->where('type', '=', 'ice planet')->delete();
+        DB::table('planet_types')->where('type', '=', 'astroid belts')->delete();
+        DB::table('planet_types')->where('type', '=', 'melting planet')->delete();
+        DB::table('planet_types')->where('type', '=', 'thick atmishere')->delete();
+        DB::table('planet_types')->where('type', '=', 'ice giant')->delete();
+        DB::table('planet_types')->where('type', '=', 'gas giant')->delete();
+        DB::table('planet_types')->where('type', '=', 'brown drawf')->delete();
+        DB::table('planet_types')->where('type', '=', 'kiper belt')->delete();
     }
 }

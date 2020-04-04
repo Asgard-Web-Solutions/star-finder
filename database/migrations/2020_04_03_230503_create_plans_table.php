@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacilityTypesTable extends Migration
+class CreatePlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateFacilityTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('facility_types', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name');
-            $table->integer('required_level');
-            $table->string('type', 32);
-            $table->string('material', 32)->nullable();
-            $table->string('required_plan');
+            $table->string('name');
+            $table->longText('description');
+            $table->string('learn_from');
+            $table->integer('level_required');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateFacilityTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facility_types');
+        Schema::dropIfExists('plans');
     }
 }

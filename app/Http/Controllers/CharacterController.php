@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Alert;
 use Gate;
 use App\Character;
+use App\Plan;
 use App\Species;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +78,13 @@ class CharacterController extends Controller
         $character->money = config('game.starting_money');
 
         $character->save();
+
+
+        $plans = Plan::where('learn_from', '=', 'default')->get();
+
+        foreach($plans as $plan) {
+            $character->plans()->attach($plan->id);
+        }
 
         return redirect()->route('home');
     }

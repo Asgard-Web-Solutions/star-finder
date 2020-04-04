@@ -8,7 +8,9 @@ use App\Base;
 use App\Facility;
 use App\Character;
 use App\FacilityType;
+use App\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FacilityController extends Controller
 {
@@ -44,9 +46,16 @@ class FacilityController extends Controller
             return redirect()->route('visit-planet');
         }
 
+        $learned = array();
+
+        foreach ($character->plans as $plan) {
+            $learned[$plan->name] = true;
+        }
+
         $facilities = FacilityType::where('required_level', '<=', $base->level)->get();
         foreach ($facilities as $facility) {
             $facility->cost = facilityUpgradeCost( $facility->required_level );
+            $facility->learned = (array_key_exists($facility->required_plan, $learned)) ? true : false;
         }
 
         return view('game.facility.new', [
@@ -80,11 +89,22 @@ class FacilityController extends Controller
             return redirect()->route('visit-planet');
         }
 
+        $learned = array();
+
+        foreach ($character->plans as $plan) {
+            $learned[$plan->name] = true;
+        }
+
         $facilityType = FacilityType::find($build);
 
         // Make sure the user can create this facility here
         if ($facilityType->required_level > $base->level) {
             Alert::toast('Your base cannot support this facility', 'warning');
+            return redirect()->route('visit-planet');
+        }
+
+        if (!array_key_exists($facilityType->required_plan, $learned)) {
+            Alert::toast('You have not yet leraned how to construct this facility', 'warning');
             return redirect()->route('visit-planet');
         }
 
@@ -166,9 +186,12 @@ class FacilityController extends Controller
         $facility->miningSpeed = calculateMiningSpeed($facility->level, $facility->bonus, $facility->facility_type->material, 1);
         $facility->upgradeCost = facilityUpgradeCost($facility->level + $facility->facility_type->required_level);
 
+        $plans = Plan::where('learn_from', '=', $facility->facility_type->type)->where('level_required', '<=', $facility->level)->get();
+
         return view('game.facility.show', [
             'facility' => $facility,
             'loadCharacter' => $character,
+            'plans' => $plans,
         ]);
     }
 

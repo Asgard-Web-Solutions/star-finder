@@ -55,8 +55,10 @@
                             <td>
                                 @if ($base->level == 2 && $facility->name == "Titanium Mine")
                                     <span class="text-gray-500">Limit Reached</span>
-                                @else
+                                @elseif ($facility->learned)
                                     <a href="{{ route('create-facility', ['id' => $base->id, 'build' => $facility->id]) }}" class="button">Build</a>
+                                @else
+                                    <span class="text-gray-500">Not Yet Learned</span>
                                 @endif
                             </td>
                         </tr>

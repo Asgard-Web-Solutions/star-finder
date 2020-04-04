@@ -9,12 +9,12 @@ return [
 
     'bases_ore_lvl_mod' => -1,
     'bases_ore_exponent' => 2,
-    'bases_ore_multiplier' => 50,
+    'bases_ore_multiplier' => 30,
     'bases_ore_addition' => 0,
 
     'bases_gas_lvl_mod' => -2,
     'bases_gas_exponent' => 1.75,
-    'bases_gas_multiplier' => 25,
+    'bases_gas_multiplier' => 20,
     'bases_gas_addition' => 0,
 
 
@@ -40,7 +40,7 @@ return [
     'mining_gas_multiplier' => env('MINING_ORE_MULTIPLIER', 60),
     'mining_gas_addition' => 40,
 
-    // Level ^ (exponent_storage + bonus) * base_storage
+    // Base storage limit == Level ^ (exponent_storage + bonus) * base_storage
     'base_storage_ore' => 100,
     'exponent_storage_ore' => 2,
     

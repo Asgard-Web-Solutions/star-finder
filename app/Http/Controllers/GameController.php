@@ -39,7 +39,7 @@ class GameController extends Controller
 
             $admin = Facility::where('base_id', '=', $base->id)->where('facility_type_id', '=', 3)->first();
 
-            $base->hasAdmin = ($admin->count()) ? $admin : 0;
+            $base->hasAdmin = ($admin) ? $admin : 0;
         }
 
         return view('game.planet', [

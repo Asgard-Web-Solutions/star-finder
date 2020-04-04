@@ -34,6 +34,7 @@
                             <td class="border-2 p-2">Amount</td>
                             <td class="border-2 p-2">Frequency</td>
                             <td class="border-2 p-2">Next Action</td>
+                            <td class="border-2 p-2">Expires</td>
                         </tr>
                         <?php $activeContracts = 0; ?>
                         @foreach ($facility->base->contracts as $contract)
@@ -43,14 +44,15 @@
                                 <td class="border-2 p-2">{{ __('common.money symbol') }}{{ $contract->price }}</td>
                                 <td class="border-2 p-2">{{ $contract->amount }}%</td>
                                 <td class="border-2 p-2">{{ ($contract->frequency/60) }}m</td>
-                                <td class="border-2 p-2">
-                                    @if ($contract->status == "active")
-                                        {{ $contract->next_at }}
-                                        <?php $activeContracts ++; ?>
-                                    @else
-                                        {{ ucfirst($contract->status) }}
-                                    @endif
-                                </td>
+                                @if ($contract->status == "active")
+                                    <?php $activeContracts ++; ?>
+
+                                    <td class="border-2 p-2">{{ $contract->next_at }}</td>
+                                    <td class="border-2 p-2">{{ $contract->expires_at }}</td>
+                                @else
+                                    <td class="border-2 p-2">--</td>
+                                    <td class="border-2 p-2">{{ ucfirst($contract->status) }}</td>
+                                @endif
                             </tr>
                         @endforeach
                     </table>
@@ -64,8 +66,18 @@
                     <br />
                 @endif
 
-                <br />
+                @if ($facility->facility_type->type == "starport")
+                    <h2 class="text-orange-500 text-lg text-center">Research Starship Plans</h2>
 
+                    @if ($plans)
+                        @foreach ($plans as $plan)
+                            {{ $plan->name }}
+                        @endforeach
+                    @endif
+
+                @endif
+
+                <br />
 
                 <h2 class="text-orange-400">Upgrade Facility</h2>
                 @if ($facility->level < $facility->base->level && $facility->status == "completed")
