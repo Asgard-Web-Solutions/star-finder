@@ -39,6 +39,8 @@ Route::get('/facility/{id}/contract', 'ContractController@create')->name('create
 Route::post('/facility/{id}/contract', 'ContractController@reviewContract')->name('submit-contract')->middleware('auth');
 Route::post('/facility/{id}/contract/confirm', 'ContractController@createContract')->name('confirm-contract')->middleware('auth');
 
+Route::get('/facility/{id}/research/{plan}', 'FacilityController@research')->name('research-plan')->middleware('auth');
+
 Route::get('/base/{base}/sell/{material}', 'BaseController@sell')->name('sell-materials')->middleware('auth');
 Route::post('/base/{base}/sell/{material}', 'BaseController@sellConfirm')->name('confirm-sell-materials')->middleware('auth');
 
@@ -80,6 +82,16 @@ Route::post('/acp/star/new', 'StarTypeController@store')->name('store-star-type'
 Route::get('/acp/star/{id}', 'StarTypeController@show')->name('acp-star-type')->middleware('auth');
 Route::get('/acp/star/{id}/edit', 'StarTypeController@edit')->name('edit-star-type')->middleware('auth');
 Route::post('/acp/star/{id}/edit', 'StarTypeController@update')->name('update-star-type')->middleware('auth');
+
+Route::get('/acp/star/{id}/add-zone', 'ZoneController@add')->name('zone-add')->middleware('auth');
+Route::post('/acp/star/{id}/add-zone', 'ZoneController@store')->name('zone-store')->middleware('auth');
+Route::get('/acp/edit-zone/{id}', 'ZoneController@edit')->name('zone-edit')->middleware('auth');
+Route::post('/acp/edit-zone/{id}', 'ZoneController@update')->name('zone-update')->middleware('auth');
+Route::get('/acp/zone/{id}', 'ZoneController@show')->name('zone-show')->middleware('auth');
+
+Route::get('/acp/zone/{id}/add-planet', 'ZoneController@addPlanet')->name('zone-planet-add')->middleware('auth');
+Route::post('/acp/zone/{id}/add-planet', 'ZoneController@storePlanet')->name('zone-planet-store')->middleware('auth');
+Route::get('/acp/zone/{id}/delete-planet/{planet_id}', 'ZoneController@deletePlanet')->name('zone-planet-delete')->middleware('auth');
 
 Route::get('/acp/planets', 'PlanetTypeController@index')->name('all-planet-types')->middleware('auth');
 Route::get('/acp/planet/new', 'PlanetTypeController@create')->name('create-planet-type')->middleware('auth');

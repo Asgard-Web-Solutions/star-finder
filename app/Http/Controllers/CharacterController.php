@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Alert;
 use Gate;
 use App\Character;
+use App\Plan;
 use App\Species;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class CharacterController extends Controller
     }
 
 
-    public function create () {
+    public function create() {
 
         $user_id = Auth::id();
         $character = Character::where("user_id", '=', $user_id)->get();
@@ -60,7 +61,7 @@ class CharacterController extends Controller
         ]);
     }
 
-    public function save (Request $request){
+    public function save(Request $request){
 
         $this->validate($request, [
             'name' => 'required|string|max:25',
@@ -74,9 +75,16 @@ class CharacterController extends Controller
         $character->species_id = $request->species;
         $character->faction_id	= 0;
         $character->planet_id = 1; // Earth!
+        $character->research_points = config('game.starting_research');
         $character->money = config('game.starting_money');
 
         $character->save();
+
+        $plans = Plan::where('learn_from', '=', 'default')->get();
+
+        foreach($plans as $plan) {
+            $character->plans()->attach($plan->id);
+        }
 
         return redirect()->route('home');
     }

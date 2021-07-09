@@ -157,4 +157,15 @@
 
         return $percent;
     }
+
+    function calculateContractExpiration()
+    {
+        $baseDays = config('formulas.contract_base_expiration_days');
+
+        for ($i = 1; $i <= 18; $i++) {
+            $expires[$i] = $baseDays + ($i * config('formulas.contract_increase_expiration_days'));
+        }
+
+        return $expires;
+    }
 ?>

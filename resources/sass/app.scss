@@ -36,11 +36,11 @@ a:hover {
 }
 
 .card {
-    @apply bg-gray-800 rounded-b rounded-t-lg my-auto text-gray-100;
+    @apply bg-gray-800 rounded-b rounded-t-lg text-gray-100;
 }
 
 .card-header {
-    @apply bg-gray-300 text-blue-400 shadow-lg rounded-t w-full my-auto text-center;
+    @apply bg-gray-300 text-blue-400 shadow-lg rounded-t w-full text-center;
 }
 
 .card-body {

@@ -21,6 +21,7 @@ class CreateCharactersTable extends Migration
             $table->bigInteger('faction_id');
             $table->integer('planet_id');
             $table->integer('money');
+            $table->decimal('research_points', 12, 2);
             $table->softDeletes();
             $table->timestamps();
         });

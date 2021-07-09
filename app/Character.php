@@ -30,4 +30,9 @@ class Character extends Model
     {
         return $this->hasMany('App\Action');
     }
+
+    public function plans()
+    {
+        return $this->belongsToMany('App\Plan');
+    }
 }

@@ -23,6 +23,7 @@ class CreateContractsTable extends Migration
             $table->smallInteger('frequency');
             $table->smallInteger('time');
             $table->string('status', 32);
+            $table->dateTime('expires_at');
             $table->dateTime('next_at');
             $table->timestamps();
         });

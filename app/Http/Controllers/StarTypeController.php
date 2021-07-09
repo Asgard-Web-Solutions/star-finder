@@ -65,7 +65,7 @@ class StarTypeController extends Controller
 
         $star = new StarType();
 
-        $star->type = $request->type;
+        $star->name = $request->name;
         $star->diameter = $request->diameter;
         $star->color = $request->color;
         $star->probability = $request->probability;
@@ -155,7 +155,7 @@ class StarTypeController extends Controller
             return redirect()->route('acp-star-types');
         }
 
-        $star->type = $request->name;
+        $star->name = $request->name;
         $star->diameter = $request->diameter;
         $star->color = $request->color;
         $star->probability = $request->probability;

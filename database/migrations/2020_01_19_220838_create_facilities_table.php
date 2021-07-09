@@ -22,6 +22,9 @@ class CreateFacilitiesTable extends Migration
             $table->string('status', 32);
             $table->dateTime('mined_at')->nullable();
             $table->boolean('full')->default(0);
+            $table->bigInteger('researching')->nullable();
+            $table->decimal('research_progress', 8,2)->nullable();
+            $table->dateTime('researched_at')->nullable();
             $table->timestamps();
         });
     }

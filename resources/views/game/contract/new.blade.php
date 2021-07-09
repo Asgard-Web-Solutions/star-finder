@@ -10,7 +10,7 @@
                     <h1>Contract Details</h1>
                 </div>
                 <div class="card-body">
-                    Sell <strong class="text-orange-600">{{ $percent[$contract->amount] }}%</strong> of your available <strong class="text-orange-600">{{ __('common.' . $contract->resource) }}</strong> every <strong class="text-orange-600">{{ $time[$contract->frequency] }}</strong> minutes? This contract will cost a one time setup fee of <strong class="text-orange-600">{{ __('common.money symbol') }}{{ ($contract->frequency + $contract->amount) * config('game.contract_base_rate') }}</strong>.
+                    Sell <strong class="text-orange-600">{{ $percent[$contract->amount] }}%</strong> of your available <strong class="text-orange-600">{{ __('common.' . $contract->resource) }}</strong> every <strong class="text-orange-600">{{ $time[$contract->frequency] }}</strong> minutes? This contract will cost a one time setup fee of <strong class="text-orange-600">{{ __('common.money symbol') }}{{ ($contract->frequency + $contract->amount + $contract->length) * config('game.contract_base_rate') }}</strong> and will last for <strong class="text-orange-500">{{ $expire[$contract->length] }} Days</strong>.
 
                     <br /><br />
                     <h2 class="text-orange-500">Estimated Income</h2>
@@ -25,6 +25,7 @@
                             <input type="hidden" name="amount" value="{{ $contract->amount }}">
                             <input type="hidden" name="frequency" value="{{ $contract->frequency }}">
                             <input type="hidden" name="resource" value="{{ $contract->resource }}">
+                            <input type="hidden" name="length" value="{{ $contract->length }}">
                             <input type="submit" value="Sign Contract" class="form-button">
                         </form>
                     </div>
@@ -45,7 +46,7 @@
                 </p>
                 
                 <p class="m-2">
-                    The cost of this will be {{ __('common.money symbol') }}{{ config('game.contract_base_rate') }} x total level of selected options. This cost is a one time fee to establish the contract.
+                    The cost of this will be <strong class="text-orange-500">{{ __('common.money symbol') }}{{ config('game.contract_base_rate') }} x total LEVEL</strong> of selected options. This cost is a one time fee to establish the contract.
                 </p>
                 <br />
 
@@ -58,6 +59,7 @@
                             <td class="border-white border-2"><label for="resource" class="form-label">Resource</label></td>
                             <td class="border-white border-2"><label for="amount" class="form-label">Amount</label></td>
                             <td class="border-white border-2"><label for="frequency" class="form-label">Frequency</label></td>
+                            <td class="border-white border-2"><label for="length" class="form-label">Length</label></td>
                         </tr>
                         <tr class="border-2">
                             <td class="border-2">
@@ -83,6 +85,14 @@
                                     @endfor
                                 </select>
                             </td>
+                            <td class="border-2">
+                                <select name="length" class="form-input">
+                                    <option value="null" disabled selected>Select Length</option>
+                                    @for ($i = 1; $i <= $maxLevel; $i++)
+                                        <option value="{{ $i }}">LVL {{ $i }} = {{ $expire[$i] }} Days</option>
+                                    @endfor
+                                </select>
+                            </td>
                         </tr>
                     </table>
 
@@ -101,6 +111,12 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    @error('length')
+                        <span class="text-red-500 pl-2" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
 
                     <br />
                     <div class="w-full text-right">

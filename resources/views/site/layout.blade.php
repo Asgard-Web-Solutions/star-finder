@@ -72,6 +72,7 @@
                                     <ul>
                                         <li> Species: {{ $character->species->name }} </li>
                                         <li> {{ __('common.money') }}: {{ __('common.money symbol') }}{{ $character->money }}</li>
+                                        <li> Research Points: {{ $character->research_points }}</li>
                                     </ul>
                                 </div>
                             </div>

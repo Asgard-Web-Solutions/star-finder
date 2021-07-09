@@ -10,10 +10,10 @@
                 @csrf
 
                 <div>
-                    <label for="type" class="form-label">Star Type</label>
-                    <input type="text" class="form-input" name="type" id="type">
+                    <label for="name" class="form-label">Star Type Name</label>
+                    <input type="text" class="form-input" name="name" id="name">
                 </div>
-                @error('type')
+                @error('name')
                     <span class="text-red-700" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

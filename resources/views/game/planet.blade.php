@@ -43,7 +43,45 @@
 
                         @if ($base->status != "constructing")
                             <h2>Level: {{ $base->level }}</h2>
-                            <span>Contracts: </span> {{ $base->contracts->count() }}<br />
+
+                            @if ($base->contracts->count())
+                                <h2 class="text-orange-500 text-center text-xl">Active Contracts</h2>
+                                <table class="w-full border-2">
+                                    <tr class="border-2">
+                                        <td class="border-2 p-2">Type</td>
+                                        <td class="border-2 p-2">Resource</td>
+                                        <td class="border-2 p-2">Price</td>
+                                        <td class="border-2 p-2">Amount</td>
+                                        <td class="border-2 p-2">Frequency</td>
+                                        <td class="border-2 p-2">Next Action</td>
+                                        <td class="border-2 p-2">Expires</td>
+                                    </tr>
+                                    <?php $activeCount = 0; ?>
+
+                                    @foreach ($base->contracts as $contract)
+                                        @if ($contract->status == "active")
+                                            <?php $activeCount = $activeCount + 1; ?>
+
+                                            <tr class="border-2 bg-blue-800">
+                                                <td class="border-2 p-2">{{ ucfirst($contract->action) }}</td>
+                                                <td class="border-2 p-2">{{ __('common.' . $contract->resource) }}</td>
+                                                <td class="border-2 p-2">{{ __('common.money symbol') }}{{ $contract->price }}</td>
+                                                <td class="border-2 p-2">{{ $contract->amount }}%</td>
+                                                <td class="border-2 p-2">{{ ($contract->frequency/60) }}m</td>
+                                                <td class="border-2 p-2">{{ $contract->next_at }}</td>
+                                                <td class="border-2 p-2">{{ $contract->expires_at }}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </table>
+                                <br />
+                            @endif
+
+                            @if ($base->hasAdmin && $base->hasAdmin->level > $activeCount)
+                                <div class="w-full text-center">
+                                    <a href="{{ route('create-contract', $base->hasAdmin->id) }}" class="button">Create Contract</a>
+                                </div>
+                            @endif
 
                             <br />
                             <table class="w-full">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStarTypesTable extends Migration
+class CreateCharacterPlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateStarTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('star_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 32);
-            $table->bigInteger('diameter');
-            $table->string('color', 20);
-            $table->tinyInteger('probability');
+        Schema::create('character_plan', function (Blueprint $table) {
+            $table->bigInteger('character_id');
+            $table->bigInteger('plan_id');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateStarTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('star_types');
+        Schema::dropIfExists('character_plan');
     }
 }
