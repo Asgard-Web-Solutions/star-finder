@@ -91,6 +91,13 @@ class ProcessContracts extends Command
 
             $next = $now;
             $contract->next_at = $next->addSeconds($contract->frequency);
+
+            // Delete the contract if it is to expire before the next fulfillment
+            if ($contract->getOriginal('next_at') >= $contract->getOriginal('expires_at')) {
+                $contract->status = 'expired';
+                $contract->next_at = $now;
+            }
+
             $contract->save();
         }
     }

@@ -39,6 +39,7 @@ class ContractController extends Controller
         $price['gas'] = materialSellPrice($facility->level, 'gas', 'contract');
         $time = calculateContractTime();
         $percent = calculateContractMaxSell();
+        $duration = calculateContractMaxDuration();
 
         return view('game.contract.new', [
             'loadCharacter' => $character,
@@ -46,6 +47,7 @@ class ContractController extends Controller
             'price' => $price,
             'time' => $time,
             'percent' => $percent,
+            'duration' => $duration,
         ]);
     }
 
@@ -71,7 +73,7 @@ class ContractController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($character->money < (($request->frequency + $request->amount) * config('game.contract_base_rate'))) {
+        if ($character->money < (($request->frequency + $request->amount + $request->duration) * config('game.contract_base_rate'))) {
             Alert::toast('Not Enough ' . __('common.money'), 'warning');
             return redirect()->route('visit-planet');
         }
@@ -80,11 +82,13 @@ class ContractController extends Controller
         $price['gas'] = materialSellPrice($facility->level, 'gas', 'contract');
         $time = calculateContractTime();
         $percent = calculateContractMaxSell();
+        $duration = calculateContractMaxDuration();
 
         $this->validate($request, [
             'amount' => 'required|integer',
             'resource' => 'required|string',
             'frequency' => 'required|integer',
+            'duration' => 'required|integer',
         ]);
 
         if ($request->resource != "ore" && $request->resource != "gas") {
@@ -114,6 +118,7 @@ class ContractController extends Controller
             'contract' => $request,
             'production' => $production,
             'storage' => $storage,
+            'duration' => $duration,
         ]);
     }
 
@@ -141,11 +146,13 @@ class ContractController extends Controller
 
         $time = calculateContractTime();
         $percent = calculateContractMaxSell();
+        $duration = calculateContractMaxDuration();
 
         $this->validate($request, [
             'amount' => 'required|integer',
             'resource' => 'required|string',
             'frequency' => 'required|integer',
+            'duration' => 'required|integer',
         ]);
 
         if ($request->resource != "ore" && $request->resource != "gas") {
@@ -156,6 +163,7 @@ class ContractController extends Controller
         $price = materialSellPrice($facility->level, $request->resource, 'contract');
 
         $now = new Carbon();
+        $expires = new Carbon();
         $contract = new Contract();
 
         $contract->base_id = $facility->base_id;
@@ -166,13 +174,15 @@ class ContractController extends Controller
         $contract->frequency = floor($time[$request->frequency] * 60);
         $contract->time = 0;
         $contract->next_at = $now->addSeconds(floor($time[$request->frequency] * 60));
+        $contract->expires_at = $expires->addHours($duration[$request->duration]);
         $contract->status = "active";
         $contract->save();
 
-        $character->money = $character->money - (($request->frequency + $request->amount) * config('game.contract_base_rate'));
+        $character->money = $character->money - (($request->frequency + $request->amount + $request->duration) * config('game.contract_base_rate'));
         $character->save();
 
         Alert::toast("Contract created!", 'success');
-        return redirect()->route('visit-planet');
+        // return redirect()->route('visit-planet');
+        return redirect()->route('show-facility', $facility->id);
     }
 }

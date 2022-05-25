@@ -20,4 +20,12 @@ class Contract extends Model
         return $diff . "m";
     }
 
+    public function getExpiresAtAttribute($time)
+    {
+        $now = Carbon::now();
+        $diff = $now->diffInHours($time);
+
+        return $diff . "h";
+    }
+
 }

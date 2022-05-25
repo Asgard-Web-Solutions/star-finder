@@ -25,4 +25,9 @@ class Base extends Model
     {
         return $this->hasMany('App\Contract');
     }
+
+    public function activeContracts()
+    {
+        return $this->hasMany('App\Contract')->where('contracts.status', '=', 'active');
+    }
 }

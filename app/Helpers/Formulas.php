@@ -157,4 +157,16 @@
 
         return $percent;
     }
+
+    function calculateContractMaxDuration()
+    {
+        $currentDays = 0;
+
+        for ($i = 0; $i <= 18; $i ++) {
+            $currentDays = $currentDays + $i;
+            $duration[$i] = $currentDays * 24;
+        }
+
+        return $duration;
+    }
 ?>

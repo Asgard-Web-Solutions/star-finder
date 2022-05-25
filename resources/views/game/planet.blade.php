@@ -27,23 +27,23 @@
         </div>
 
         <br />
-        <div class="w-full flex">
+        <div class="flex w-full">
             @foreach ($bases as $base)
                 <br />
-                <div class="card w-full lg:w-8/12 md:mr-1 lg:mr-2">
+                <div class="w-full card lg:w-8/12 md:mr-1 lg:mr-2">
                     <div class="card-header">
                         <h1>Universal Base #{{ $base->id }}</h1>
                     </div>
                     <div class="card-body">
                         @if ($base->status == "constructing")
-                            <div class="text-center w-full">
+                            <div class="w-full text-center">
                                 <span class="text-yellow-500"> &gt;&gt; Under Construction &lt;&lt; </span>
                             </div>
                         @endif
 
                         @if ($base->status != "constructing")
                             <h2>Level: {{ $base->level }}</h2>
-                            <span>Contracts: </span> {{ $base->contracts->count() }}<br />
+                            <span>Contracts: </span> {{ $base->activeContracts->count() }}<br />
 
                             <br />
                             <table class="w-full">
@@ -99,13 +99,13 @@
 
                             @if ($base->status == "upgrading")
                                 <br />
-                                <div class="text-center w-full">
+                                <div class="w-full text-center">
                                     <span class="text-yellow-500"> &gt;&gt; Upgrade In Progress &lt;&lt; </span>
                                 </div>
                             @endif
 
                             @if ($base->status == "completed")
-                                <div class="w-full text-right mt-3">
+                                <div class="w-full mt-3 text-right">
                                     @if ($base->facilities->count() < $base->level )
                                         <a href="{{ route('new-facility', $base->id) }}" class="button">Build a Facility</a>
                                     @endif
@@ -122,7 +122,7 @@
             @endforeach
 
             @if ($bases->count() < config('game.max_bases_per_planet') )
-                <div class="card w-4/12 md:w-6/12">
+                <div class="w-4/12 card md:w-6/12">
                     <div class="card-header">
                         <h1>Base Availability</h1>
                     </div>

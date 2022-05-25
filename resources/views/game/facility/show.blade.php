@@ -4,7 +4,7 @@
 
     <div class="w-full">
 
-        <div class="card w-5/12 md:w-6/12 m-auto">
+        <div class="w-5/12 m-auto card md:w-6/12">
             <div class="card-header">
                 <h1>Facility: {{ $facility->facility_type->name }}</h1>
             </div>
@@ -23,26 +23,28 @@
                 @endif
 
                 @if ($facility->facility_type->type == "admin")
-                    Contracts: {{ $facility->base->contracts->count() }} / {{ $facility->level }}<br />
+                    Contracts: {{ $facility->base->activeContracts->count() }} / {{ $facility->level }}<br />
                     <br />
 
                     <table class="w-full border-2">
                         <tr class="border-2">
-                            <td class="border-2 p-2">Type</td>
-                            <td class="border-2 p-2">Resource</td>
-                            <td class="border-2 p-2">Price</td>
-                            <td class="border-2 p-2">Amount</td>
-                            <td class="border-2 p-2">Frequency</td>
-                            <td class="border-2 p-2">Next Action</td>
+                            <td class="p-2 border-2">Type</td>
+                            <td class="p-2 border-2">Resource</td>
+                            <td class="p-2 border-2">Price</td>
+                            <td class="p-2 border-2">Amount</td>
+                            <td class="p-2 border-2">Frequency</td>
+                            <td class="p-2 border-2">Next Fulfillment</td>
+                            <td class="p-2 border-2">Expires</td>
                         </tr>
                         @foreach ($facility->base->contracts as $contract)
-                            <tr class="border-2 bg-blue-800">
-                                <td class="border-2 p-2">{{ $contract->action }}</td>
-                                <td class="border-2 p-2">{{ __('common.' . $contract->resource) }}</td>
-                                <td class="border-2 p-2">{{ __('common.money symbol') }}{{ $contract->price }}</td>
-                                <td class="border-2 p-2">{{ $contract->amount }}%</td>
-                                <td class="border-2 p-2">{{ ($contract->frequency/60) }}m</td>
-                                <td class="border-2 p-2">{{ $contract->next_at }}</td>
+                            <tr class="@if($contract->status == 'active') bg-blue-800 border-2 @else bg-gray-700 text-gray-500 @endif">
+                                <td class="p-2 border-2">{{ Str::ucfirst($contract->action) }}</td>
+                                <td class="p-2 border-2">{{ __('common.' . $contract->resource) }}</td>
+                                <td class="p-2 border-2">{{ __('common.money symbol') }}{{ $contract->price }}</td>
+                                <td class="p-2 border-2">{{ $contract->amount }}%</td>
+                                <td class="p-2 border-2">{{ ($contract->frequency/60) }}m</td>
+                                <td class="p-2 border-2">{{ $contract->next_at }}</td>
+                                <td class="p-2 border-2">{{ $contract->expires_at }}</td>
                             </tr>
                         @endforeach
                     </table>
@@ -70,30 +72,30 @@
                         </tr>
                         <tr>
                             <td>
-                                {{ __('common.money symbol') }}{{ $facility->upgradeCost['money'] }} / {{ $loadCharacter->money }}
+                                {{ __('common.money symbol') }}{{ $loadCharacter->money }} / {{ __('common.money symbol') }}{{ $facility->upgradeCost['money'] }}
 
                                 @if ($facility->upgradeCost['money'] > $loadCharacter->money)
-                                    <i class="fas fa-times-circle text-red-500"></i>
+                                    <i class="text-red-500 fas fa-times-circle"></i>
                                 @else
-                                    <i class="far fa-check-circle text-green-500"></i>
+                                    <i class="text-green-500 far fa-check-circle"></i>
                                     @php $canBuild ++; @endphp
                                 @endif
 
                             </td>
-                            <td>{{ $facility->upgradeCost['ore'] }} / {{ $facility->base->ore }}
+                            <td>{{ $facility->base->ore }} / {{ $facility->upgradeCost['ore'] }}
 
                                 @if ($facility->upgradeCost['ore'] > $facility->base->ore)
-                                    <i class="fas fa-times-circle text-red-500"></i>
+                                    <i class="text-red-500 fas fa-times-circle"></i>
                                 @else
-                                    <i class="far fa-check-circle text-green-500"></i>
+                                    <i class="text-green-500 far fa-check-circle"></i>
                                     @php $canBuild ++; @endphp
                                 @endif
                             </td>
-                            <td>{{ $facility->upgradeCost['gas'] }} / {{ $facility->base->gas }}
+                            <td>{{ $facility->base->gas }} / {{ $facility->upgradeCost['gas'] }}
                                 @if ($facility->upgradeCost['gas'] > $facility->base->gas)
-                                    <i class="fas fa-times-circle text-red-500"></i>
+                                    <i class="text-red-500 fas fa-times-circle"></i>
                                 @else
-                                    <i class="far fa-check-circle text-green-500"></i>
+                                    <i class="text-green-500 far fa-check-circle"></i>
                                     @php $canBuild ++; @endphp
                                 @endif
                             </td>
@@ -124,8 +126,8 @@
             </div>
         </div>
 
-        <div class="w-5/12 md:w-6/12 m-auto">
-            <div class="w-full text-right my-3">
+        <div class="w-5/12 m-auto md:w-6/12">
+            <div class="w-full my-3 text-right">
                 <a href="{{ route('visit-planet') }}" class="button-dark">Cancel</a>
             </div>
         </div>
