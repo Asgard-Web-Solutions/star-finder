@@ -50,7 +50,7 @@
                     </table>
                     <br />
 
-                    @if ($facility->base->contracts->count() < $facility->level)
+                    @if ($facility->base->activeContracts->count() < $facility->level)
                         <div class="w-full text-right">
                             <a href="{{ route('create-contract', $facility->id) }}" class="button">Create Contract</a>
                         </div>

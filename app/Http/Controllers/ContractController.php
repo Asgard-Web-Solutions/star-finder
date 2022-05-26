@@ -30,7 +30,7 @@ class ContractController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($facility->base->contracts->count() >= $facility->level) {
+        if ($facility->base->activeContracts->count() >= $facility->level) {
             Alert::toast('Contract Limit Reached', 'error');
             return redirect()->route('visit-planet');
         }
@@ -68,7 +68,7 @@ class ContractController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($facility->base->contracts->count() >= $facility->level) {
+        if ($facility->base->activeContracts->count() >= $facility->level) {
             Alert::toast('Contract Limit Reached', 'error');
             return redirect()->route('visit-planet');
         }
@@ -139,7 +139,7 @@ class ContractController extends Controller
             return redirect()->route('visit-planet');
         }
 
-        if ($facility->base->contracts->count() >= $facility->level) {
+        if ($facility->base->activeContracts->count() >= $facility->level) {
             Alert::toast('Contract Limit Reached', 'error');
             return redirect()->route('visit-planet');
         }
