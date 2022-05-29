@@ -88,3 +88,4 @@ Route::get('/acp/planet/{id}', 'PlanetTypeController@show')->name('acp-planet-ty
 Route::get('/acp/planet/{id}/edit', 'PlanetTypeController@edit')->name('edit-planet-type')->middleware('auth');
 Route::post('/acp/planet/{id}/edit', 'PlanetTypeController@update')->name('update-planet-type')->middleware('auth');
 
+Route::get('/acp/ships/', 'ShipTypeController@index')->name('all-ship-types')->middleware('auth');

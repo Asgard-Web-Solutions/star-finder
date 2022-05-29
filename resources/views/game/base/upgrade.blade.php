@@ -4,7 +4,7 @@
 
     <div class="w-full">
 
-        <div class="card w-full md:w-10/12 lg:w-7/12 xl:w-6/12 m-auto">
+        <div class="w-full m-auto card md:w-10/12 lg:w-7/12 xl:w-6/12">
             <div class="card-header">
                 <h1>Base Construction</h1>
             </div>
@@ -40,30 +40,30 @@
                     </tr>
                     <tr>
                         <td>
-                            {{ __('common.money symbol') }}{{ $cost['money'] }}
+                            {{ __('common.money symbol') }}{{ $loadCharacter->money }} / {{ __('common.money symbol') }}{{ $cost['money'] }}
 
                             @if ($cost['money'] > $loadCharacter->money)
-                                <i class="fas fa-times-circle text-red-500"></i>
+                                <i class="text-red-500 fas fa-times-circle"></i>
                             @else
-                                <i class="far fa-check-circle text-green-500"></i>
+                                <i class="text-green-500 far fa-check-circle"></i>
                                 @php $canBuild ++; @endphp
                             @endif
 
                         </td>
-                        <td>{{ $cost['ore'] }}
+                        <td>{{ $base->ore }} / {{ $cost['ore'] }}
 
                             @if ($cost['ore'] > $planetaryFunds['ore'])
-                                <i class="fas fa-times-circle text-red-500"></i>
+                                <i class="text-red-500 fas fa-times-circle"></i>
                             @else
-                                <i class="far fa-check-circle text-green-500"></i>
+                                <i class="text-green-500 far fa-check-circle"></i>
                                 @php $canBuild ++; @endphp
                             @endif
                         </td>
-                        <td>{{ $cost['gas'] }}
+                        <td>{{ $base->gas }} / {{ $cost['gas'] }}
                             @if ($cost['gas'] > $planetaryFunds['gas'])
-                                <i class="fas fa-times-circle text-red-500"></i>
+                                <i class="text-red-500 fas fa-times-circle"></i>
                             @else
-                                <i class="far fa-check-circle text-green-500"></i>
+                                <i class="text-green-500 far fa-check-circle"></i>
                                 @php $canBuild ++; @endphp
                             @endif
                         </td>
@@ -86,8 +86,8 @@
             </div>
         </div>
 
-        <div class="w-full md:w-10/12 lg:w-7/12 xl:w-6/12 m-auto">
-            <div class="w-full text-right my-3">
+        <div class="w-full m-auto md:w-10/12 lg:w-7/12 xl:w-6/12">
+            <div class="w-full my-3 text-right">
                 <a href="{{ route('visit-planet') }}" class="button-dark">Cancel</a>
             </div>
         </div>
